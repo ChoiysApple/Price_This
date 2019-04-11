@@ -12,3 +12,17 @@ For these people, here's solution.
 
 This app will be helpful for above two cases.
 User can post question about the proper price of certain product and users will answer about it only with "Price", no comments.
+
+
+# UI concept
+**Main** 
+![main_comment](./Concept_image/with_comment/main_comment.png)
+
+**Bottom Menu**
+![bottomMenu_comment](./Concept_image/with_comment/bottomMenu_comment.png)
+
+**Box** 
+![box_comment](./Concept_image/with_comment/box_comment.png)
+
+**Ask Question**
+![post_comment](./Concept_image/with_comment/post_comment.png)
