@@ -12,4 +12,3 @@ For these people, here's solution.
 
 This app will be helpful for above two cases.
 User can post question about the proper price of certain product and users will answer about it only with "Price", no comments.
-
