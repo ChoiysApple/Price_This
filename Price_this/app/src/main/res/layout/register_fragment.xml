@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/board_frame">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/productName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:layout_margin="10dp"
+            android:hint="@string/productToRegister" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="#a1d8e4" />
+        <ImageView
+            android:id="@+id/productImg"
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/add_picture_icon"
+            android:layout_gravity="center_horizontal"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="20dp"
+            android:text="@string/registerPicture"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="#a1d8e4" />
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:stretchColumns="*">
+            <TableRow>
+                <EditText
+                    android:id="@+id/tag"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="3"
+                    android:paddingLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginBottom="7dp"
+                    android:background="@drawable/search_frame"
+                    android:hint="@string/tagAddSearch"/>
+                <Button
+                    android:id="@+id/addTagBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="7dp"
+                    android:background="@drawable/bttn_add"
+                    android:layout_weight="1"
+                    android:text="@string/add"/>
+            </TableRow>
+            <TableRow>
+
+            </TableRow>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="#a1d8e4" />
+            <TableRow>
+                <EditText
+                    android:id="@+id/priceToRegister"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="6"
+                    android:paddingLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginBottom="7dp"
+                    android:hint="@string/registerPrice"/>
+                <Button
+                    android:id="@+id/plusBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="7dp"
+                    android:background="@drawable/bttn_plus"
+                    android:layout_weight="1"/>
+                <Button
+                    android:id="@+id/minusBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="7dp"
+                    android:background="@drawable/bttn_minus"
+                    android:layout_weight="1"/>
+            </TableRow>
+        </TableLayout>
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

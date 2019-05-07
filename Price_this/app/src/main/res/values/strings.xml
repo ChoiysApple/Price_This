@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Price_this</string>
+    <!-- register_fragment -->
+    <string name="productToRegister">등록할 상품 이름</string>
+    <string name="registerPicture">상품 사진 올리기</string>
+    <string name="tagAddSearch">태그 추가/검색</string>
+    <string name="add">추가</string>
+    <string name="registerPrice">등록가: </string>
 </resources>
