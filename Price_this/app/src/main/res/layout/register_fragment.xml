@@ -12,7 +12,7 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/productName"
+            android:id="@+id/editTxt_productName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="20dp"
@@ -22,8 +22,9 @@
             android:layout_width="match_parent"
             android:layout_height="3dp"
             android:background="#a1d8e4" />
+
         <ImageView
-            android:id="@+id/productImg"
+            android:id="@+id/imgView_productImg"
             android:layout_margin="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,7 +46,7 @@
             android:stretchColumns="*">
             <TableRow>
                 <EditText
-                    android:id="@+id/tag"
+                    android:id="@+id/editText_tag"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_weight="3"
@@ -56,13 +57,13 @@
                     android:background="@drawable/search_frame"
                     android:hint="@string/tagAddSearch"/>
                 <Button
-                    android:id="@+id/addTagBtn"
+                    android:id="@+id/btn_addTag"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="7dp"
                     android:layout_marginRight="7dp"
-                    android:background="@drawable/bttn_add"
+                    android:background="@drawable/btn_add"
                     android:layout_weight="1"
                     android:text="@string/add"/>
             </TableRow>
@@ -75,7 +76,7 @@
                 android:background="#a1d8e4" />
             <TableRow>
                 <EditText
-                    android:id="@+id/priceToRegister"
+                    android:id="@+id/editText_priceToRegister"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_weight="6"
@@ -85,21 +86,21 @@
                     android:layout_marginBottom="7dp"
                     android:hint="@string/registerPrice"/>
                 <Button
-                    android:id="@+id/plusBtn"
+                    android:id="@+id/btn_plus"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="7dp"
-                    android:background="@drawable/bttn_plus"
+                    android:background="@drawable/btn_plus"
                     android:layout_weight="1"/>
                 <Button
-                    android:id="@+id/minusBtn"
+                    android:id="@+id/btn_minus"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="7dp"
                     android:layout_marginRight="7dp"
-                    android:background="@drawable/bttn_minus"
+                    android:background="@drawable/btn_minus"
                     android:layout_weight="1"/>
             </TableRow>
         </TableLayout>

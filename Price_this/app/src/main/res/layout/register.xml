@@ -17,17 +17,17 @@
             android:orientation="vertical"
             android:padding="20dp">
         <fragment
-            android:id="@+id/register"
+            android:id="@+id/frag_register"
             android:name="com.example.price_this.price_this.RegisterFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"/>
 
         <Button
-            android:id="@+id/registerBtn"
+            android:id="@+id/btn_register"
             android:layout_width="wrap_content"
             android:layout_height="65dp"
-            android:background="@drawable/bttn_registration"/>
+            android:background="@drawable/btn_registration"/>
     </LinearLayout>
     </ScrollView>
 </android.support.constraint.ConstraintLayout>
