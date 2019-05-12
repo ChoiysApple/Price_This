@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#E0F2F7"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="168dp">
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp">
+
+            <TableRow android:padding="10dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp"
+                    android:text="@string/email"
+                    android:textSize="15dp" />
+
+                <EditText
+                    android:id="@+id/editTxt_email"
+                    android:layout_width="250dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/search_frame"
+                    android:paddingLeft="10dp"
+                    android:textSize="13dp" />
+
+            </TableRow>
+            <TableRow android:padding="10dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp"
+                    android:text="@string/password"
+                    android:textSize="15dp" />
+                <EditText
+                    android:id="@+id/editTxt_password"
+                    android:layout_width="250dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/search_frame"
+                    android:paddingLeft="10dp"
+                    android:textSize="13dp" />
+            </TableRow>
+            <TableRow android:padding="10dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp"
+                    android:text="@string/name"
+                    android:textSize="15dp" />
+                <EditText
+                    android:id="@+id/editTxt_name"
+                    android:layout_width="250dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/search_frame"
+                    android:paddingLeft="10dp"
+                    android:textSize="13dp" />
+            </TableRow>
+        </TableLayout>
+
+        <Button
+            android:id="@+id/btn_registerUser"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_margin="30dp"
+            android:background="@drawable/btn_null"
+            android:text="@string/registerUser"
+            android:textSize="15dp" />
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

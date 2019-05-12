@@ -17,6 +17,6 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e){
             System.out.println(e.getMessage());
         }
-        setContentView(R.layout.register);
+        setContentView(R.layout.user_register);
     }
 }
