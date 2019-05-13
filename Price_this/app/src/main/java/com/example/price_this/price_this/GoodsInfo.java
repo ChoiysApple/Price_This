@@ -1,4 +1,4 @@
-package com.example.pricethis;
+package com.example.price_this.price_this;
 
 public class GoodsInfo {
 

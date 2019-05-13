@@ -1,4 +1,4 @@
-package com.example.pricethis;
+package com.example.price_this.price_this;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
