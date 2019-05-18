@@ -12,4 +12,10 @@
     <string name="modify">수정하기</string>
     <string name="point">포인트</string>
     <string name="NULL">null</string>
+    <string name="averagePrice">평균가</string>
+    <string name="registeredPrice">등록가</string>
+    <string name="recommend">추천하기: </string>
+
+
+
 </resources>

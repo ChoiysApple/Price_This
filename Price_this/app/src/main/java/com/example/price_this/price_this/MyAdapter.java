@@ -1,6 +1,8 @@
 package com.example.price_this.price_this;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +13,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView imgViewPicture;
         TextView txtViewPrice;
@@ -37,6 +39,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         return new MyViewHolder(v);
     }
 
+
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
@@ -49,7 +52,13 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final Intent intent;
                 Context context = v.getContext();
+                intent = new Intent(context, Product.class);
+                intent.putExtra("name", goodsInfoArrayList.get(position).goodsName);
+                intent.putExtra("image", goodsInfoArrayList.get(position).goodsPicture);
+                intent.putExtra("price", goodsInfoArrayList.get(position).goodsPrice);
+                context.startActivity(intent);
                 Toast.makeText(context, "이거는 "+goodsInfoArrayList.get(position).goodsName+ "이야 으아악 누르지마", Toast.LENGTH_SHORT).show();
             }
         });
@@ -59,4 +68,5 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     public int getItemCount() {
         return goodsInfoArrayList.size();
     }
+
 }
