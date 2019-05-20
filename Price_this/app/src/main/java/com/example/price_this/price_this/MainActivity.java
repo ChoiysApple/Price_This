@@ -9,12 +9,16 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager mLayoutManager;
+    DatabaseReference goodsDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,18 +31,21 @@ public class MainActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_main);
 
+        //리사이클러뷰 설정
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new GridLayoutManager(this, 2);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        goodsDatabase = FirebaseDatabase.getInstance().getReference().child("이름");
+
         ArrayList<GoodsInfo> GoodsInfoArrayList = new ArrayList<>();
-        GoodsInfoArrayList.add(new GoodsInfo(R.drawable.berry,"5,000원", "딸기"));
-        GoodsInfoArrayList.add(new GoodsInfo(R.drawable.bread, "4,600원", "빵"));
-        GoodsInfoArrayList.add(new GoodsInfo(R.drawable.noodle, "4,000원", "국수먹고싶다"));
-        GoodsInfoArrayList.add(new GoodsInfo(R.drawable.berry,"115,000원", "금딸기"));
-        GoodsInfoArrayList.add(new GoodsInfo(R.drawable.bread, "1,234,114,600원", "빵"));
-        GoodsInfoArrayList.add(new GoodsInfo(R.drawable.noodle, "4,000원", "요즘누가짜장면을사천원에팔아"));
+        GoodsInfoArrayList.add(new GoodsInfo(R.drawable.berry,"5,000원", "딸기", null));
+        GoodsInfoArrayList.add(new GoodsInfo(R.drawable.bread, "4,600원", "빵", null));
+        GoodsInfoArrayList.add(new GoodsInfo(R.drawable.noodle, "4,000원", "국수먹고싶다", null));
+        GoodsInfoArrayList.add(new GoodsInfo(R.drawable.berry,"115,000원", "금딸기", null));
+        GoodsInfoArrayList.add(new GoodsInfo(R.drawable.bread, "1,234,114,600원", "빵", null));
+        GoodsInfoArrayList.add(new GoodsInfo(R.drawable.noodle, "4,000원", "요즘누가짜장면을사천원에팔아", null));
 
         MyAdapter myAdapter = new MyAdapter(GoodsInfoArrayList);
 

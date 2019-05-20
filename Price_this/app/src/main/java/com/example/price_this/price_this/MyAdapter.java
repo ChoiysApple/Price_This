@@ -24,6 +24,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             imgViewPicture = view.findViewById(R.id.imgViewPicture);
             txtViewPrice = view.findViewById(R.id.txtViewPrice);
             txtViewGoodsName = view.findViewById(R.id.txtViewName);
+            txtViewGoodsName.setMaxLines(1);
         }
     }
 
