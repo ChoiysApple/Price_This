@@ -39,10 +39,12 @@ public class MainActivity extends AppCompatActivity {
 
         goodsDatabase = FirebaseDatabase.getInstance().getReference().child("이름");
 
-        String[] arr = {"음식, 딸기"};
+        ArrayList<String> tags = new ArrayList<>();
+        tags.add("딸기");
+        tags.add("음식");
 
         ArrayList<GoodsInfo> GoodsInfoArrayList = new ArrayList<>();
-        GoodsInfoArrayList.add(new GoodsInfo(R.drawable.berry,"5,000원", "딸기", arr));
+        GoodsInfoArrayList.add(new GoodsInfo(R.drawable.berry,"5,000원", "딸기", tags));
         GoodsInfoArrayList.add(new GoodsInfo(R.drawable.bread, "4,600원", "빵", null));
         GoodsInfoArrayList.add(new GoodsInfo(R.drawable.noodle, "4,000원", "국수먹고싶다", null));
         GoodsInfoArrayList.add(new GoodsInfo(R.drawable.berry,"115,000원", "금딸기", null));

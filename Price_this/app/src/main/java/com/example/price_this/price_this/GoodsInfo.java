@@ -7,7 +7,7 @@ public class GoodsInfo {
     public int goodsPicture;
     public String goodsPrice;
     public String goodsName;
-    public String[] goodsTag;
+    public ArrayList<String> goodsTag;
 
     public GoodsInfo(int goodsPicture, String goodsPrice, String goodsName) {
         this.goodsPicture = goodsPicture;
@@ -15,7 +15,7 @@ public class GoodsInfo {
         this.goodsName = goodsName;
     }
 
-    public GoodsInfo(int goodsPicture, String goodsPrice, String goodsName, String[] goodsTag) {
+    public GoodsInfo(int goodsPicture, String goodsPrice, String goodsName, ArrayList<String> goodsTag) {
         this.goodsPicture = goodsPicture;
         this.goodsPrice = goodsPrice;
         this.goodsName = goodsName;
