@@ -43,7 +43,8 @@
             android:layout_marginLeft="25dp"
             android:layout_marginTop="5dp"
             android:gravity="center"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:ellipsize="end"/>
 
         <TextView
             android:id="@+id/txtViewPrice"

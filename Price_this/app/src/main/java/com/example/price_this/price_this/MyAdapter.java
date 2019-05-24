@@ -23,7 +23,9 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             super(view);
             imgViewPicture = view.findViewById(R.id.imgViewPicture);
             txtViewPrice = view.findViewById(R.id.txtViewPrice);
+            txtViewPrice.setMaxLines(1);
             txtViewGoodsName = view.findViewById(R.id.txtViewName);
+            txtViewGoodsName.setMaxLines(1);
         }
     }
 
@@ -58,6 +60,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 intent.putExtra("name", goodsInfoArrayList.get(position).goodsName);
                 intent.putExtra("image", goodsInfoArrayList.get(position).goodsPicture);
                 intent.putExtra("price", goodsInfoArrayList.get(position).goodsPrice);
+                intent.putExtra("Tags", goodsInfoArrayList.get(position).goodsTag);
                 context.startActivity(intent);
                 Toast.makeText(context, "이거는 "+goodsInfoArrayList.get(position).goodsName+ "이야 으아악 누르지마", Toast.LENGTH_SHORT).show();
             }
