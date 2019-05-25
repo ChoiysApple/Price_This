@@ -1,29 +1,23 @@
 package com.example.price_this.price_this;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.PointerIcon;
-import android.view.View;
-import android.widget.Button;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
-
+public class MyPage extends AppCompatActivity {
     RecyclerView mRecyclerView;
+    RecyclerView mRecyclerView2;
     RecyclerView.LayoutManager mLayoutManager;
     DatabaseReference goodsDatabase;
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         try{
@@ -32,20 +26,24 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e){
             System.out.println(e.getMessage());
         }
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.mypage);
 
         //리사이클러뷰 설정
-        mRecyclerView = findViewById(R.id.recycler_view);
+        mRecyclerView = findViewById(R.id.mypage_question);
         mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new GridLayoutManager(this, 2);
+        mLayoutManager = new GridLayoutManager(this, 1);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        goodsDatabase = FirebaseDatabase.getInstance().getReference().child("이름");
+        mRecyclerView2 = findViewById(R.id.mypage_answer);
+        mRecyclerView2.setHasFixedSize(true);
+        mLayoutManager = new GridLayoutManager(this, 1);
+        mRecyclerView2.setLayoutManager(mLayoutManager);
 
+
+        goodsDatabase = FirebaseDatabase.getInstance().getReference().child("이름");
         ArrayList<String> tags = new ArrayList<>();
         tags.add("딸기");
         tags.add("음식");
-
         ArrayList<GoodsInfo> GoodsInfoArrayList = new ArrayList<>();
         GoodsInfoArrayList.add(new GoodsInfo(R.drawable.berry,"5,000원", "딸기", tags));
         GoodsInfoArrayList.add(new GoodsInfo(R.drawable.bread, "4,600원", "빵", null));
@@ -54,8 +52,11 @@ public class MainActivity extends AppCompatActivity {
         GoodsInfoArrayList.add(new GoodsInfo(R.drawable.bread, "1,234,114,600원", "빵", null));
         GoodsInfoArrayList.add(new GoodsInfo(R.drawable.noodle, "4,000원", "요즘누가짜장면을사천원에팔아", null));
 
-        MyAdapter myAdapter = new MyAdapter(GoodsInfoArrayList);
+        MyPageQuestion myPageQuestion = new MyPageQuestion(GoodsInfoArrayList);
+        MyPageAnswer myPageAnswer = new MyPageAnswer(GoodsInfoArrayList);
 
-        mRecyclerView.setAdapter(myAdapter);
+        mRecyclerView.setAdapter(myPageQuestion);
+        mRecyclerView2.setAdapter(myPageAnswer);
+
     }
 }
