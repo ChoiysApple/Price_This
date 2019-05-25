@@ -2,6 +2,7 @@ package com.example.price_this.price_this;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager mLayoutManager;
     DatabaseReference goodsDatabase;
+    FloatingActionButton btn_floating;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,15 @@ public class MainActivity extends AppCompatActivity {
         mLayoutManager = new GridLayoutManager(this, 2);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        btn_floating = findViewById(R.id.btn_floating);
+        btn_floating.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Register.class);
+                startActivity(intent);
+            }
+        });
+
         goodsDatabase = FirebaseDatabase.getInstance().getReference().child("이름");
 
         ArrayList<String> tags = new ArrayList<>();
@@ -53,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         GoodsInfoArrayList.add(new GoodsInfo(R.drawable.berry,"115,000원", "금딸기", null));
         GoodsInfoArrayList.add(new GoodsInfo(R.drawable.bread, "1,234,114,600원", "빵", null));
         GoodsInfoArrayList.add(new GoodsInfo(R.drawable.noodle, "4,000원", "요즘누가짜장면을사천원에팔아", null));
+
 
         MyAdapter myAdapter = new MyAdapter(GoodsInfoArrayList);
 
