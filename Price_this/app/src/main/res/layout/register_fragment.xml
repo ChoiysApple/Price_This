@@ -36,10 +36,15 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="20dp"
             android:text="@string/registerPicture"/>
-        <View
+
+        <EditText
+            android:id="@+id/editTxt_description"
             android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:background="#a1d8e4" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="@string/description"/>
+
         <TableLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -50,26 +55,33 @@
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_weight="3"
-                    android:paddingLeft="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="7dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
                     android:layout_marginBottom="7dp"
-                    android:background="@drawable/search_frame"
-                    android:hint="@string/tagAddSearch"/>
-                <Button
-                    android:id="@+id/btn_addTag"
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="7dp"
-                    android:layout_marginRight="7dp"
-                    android:background="@drawable/btn_add"
-                    android:layout_weight="1"
-                    android:text="@string/add"/>
-            </TableRow>
-            <TableRow>
+                    android:hint="@string/tag"/>
 
             </TableRow>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="#a1d8e4" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:text="@string/spec"
+                android:textStyle="bold"
+                android:textSize="20dp"/>
+            <EditText
+                android:id="@+id/editTxt_spec"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="10dp"
+                android:textSize="20dp"
+                android:hint="@string/specEx"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
@@ -81,27 +93,8 @@
                     android:layout_height="50dp"
                     android:layout_weight="6"
                     android:paddingLeft="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="7dp"
-                    android:layout_marginBottom="7dp"
+                    android:layout_margin="15dp"
                     android:hint="@string/registerPrice"/>
-                <Button
-                    android:id="@+id/btn_plus"
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="7dp"
-                    android:background="@drawable/btn_plus"
-                    android:layout_weight="1"/>
-                <Button
-                    android:id="@+id/btn_minus"
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="7dp"
-                    android:layout_marginRight="7dp"
-                    android:background="@drawable/btn_minus"
-                    android:layout_weight="1"/>
             </TableRow>
         </TableLayout>
 

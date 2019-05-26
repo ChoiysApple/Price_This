@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/account"
+            android:icon="@drawable/rabbit"
+            android:title="계정"
+            />
+        <item
+            android:id="@+id/rgst"
+            android:icon="@drawable/rabbit"
+            android:title="등록한 상품"
+            />
+        <item
+            android:id="@+id/command"
+            android:icon="@drawable/rabbit"
+            android:title="댓글 단 상품"
+            />
+    </group>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/bug_report"
+            android:icon="@drawable/rabbit"
+            android:title="버그 리포트"
+            />
+        <item
+            android:id="@+id/setting"
+            android:icon="@drawable/rabbit"
+            android:title="설정"
+            />
+        <item
+            android:id="@+id/logout"
+            android:icon="@drawable/rabbit"
+            android:title="로그아웃"
+            />
+    </group>
+</menu>

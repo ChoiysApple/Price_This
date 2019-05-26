@@ -45,10 +45,12 @@ public class Product extends AppCompatActivity {
         txtView_avgPrice.setText(intent.getStringExtra("price"));
         //태그띄우기
         ArrayList<String> tags = intent.getStringArrayListExtra("Tags");
-        for(int i=0; i<tags.size();i++) {
-            txtView_goodsTag.append(tags.get(i));
-            if (i != tags.size()-1){
-                txtView_goodsTag.append(", ");
+        if(tags!=null){
+            for(int i=0; i<tags.size();i++) {
+                txtView_goodsTag.append(tags.get(i));
+                if (i != tags.size()-1){
+                    txtView_goodsTag.append(", ");
+                }
             }
         }
 

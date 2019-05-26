@@ -6,49 +6,46 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class MyPageQuestion extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        ImageView imgViewPicture;
-        TextView txtViewPrice;
         TextView txtViewGoodsName;
+        TextView txtViewGoodsDate;
+        TextView txtViewGoodsTag;
 
         MyViewHolder(View view){
             super(view);
-            imgViewPicture = view.findViewById(R.id.imgViewPicture);
-            txtViewPrice = view.findViewById(R.id.txtViewPrice);
-            txtViewPrice.setMaxLines(1);
-            txtViewGoodsName = view.findViewById(R.id.txtViewName);
+            txtViewGoodsName = view.findViewById(R.id.txtView_productName);
             txtViewGoodsName.setMaxLines(1);
+            txtViewGoodsDate = view.findViewById(R.id.txtView_date);
+            txtViewGoodsTag = view.findViewById(R.id.txtView_goodsTag);
         }
     }
 
     private ArrayList<GoodsInfo> goodsInfoArrayList;
-    MyAdapter(ArrayList<GoodsInfo> goodsInfoArrayList){
+    MyPageQuestion(ArrayList<GoodsInfo> goodsInfoArrayList){
         this.goodsInfoArrayList = goodsInfoArrayList;
     }
 
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.mypage_question, parent, false);
 
-        return new MyViewHolder(v);
+        return new MyPageQuestion.MyViewHolder(v);
     }
 
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
-        final MyViewHolder myViewHolder = (MyViewHolder) holder;
+        final MyPageQuestion.MyViewHolder myViewHolder = (MyPageQuestion.MyViewHolder) holder;
 
-        myViewHolder.imgViewPicture.setImageResource(goodsInfoArrayList.get(position).goodsPicture);
-        myViewHolder.txtViewPrice.setText(goodsInfoArrayList.get(position).crrtgoodsPrice);
         myViewHolder.txtViewGoodsName.setText(goodsInfoArrayList.get(position).goodsName);
+
 
         myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,5 +67,4 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public int getItemCount() {
         return goodsInfoArrayList.size();
     }
-
 }

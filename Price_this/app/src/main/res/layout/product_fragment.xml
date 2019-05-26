@@ -48,25 +48,47 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_margin="10dp"
                     android:text="@string/goodsTag"
                     android:textColor="#a1d8e4"
                     android:textSize="20dp" />
+
                 <TextView
                     android:id="@+id/txtView_goodsTag"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_margin="10dp"
                     android:textColor="#a1d8e4"
                     android:textSize="20dp" />
             </TableRow>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:text="@string/spec"
+                android:textStyle="bold"
+                android:textSize="20dp"/>
+            <TableRow>
+                <TextView
+                    android:id="@+id/txtView_spec"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:textSize="20dp"
+                    android:text="@string/NULL"/>
+            </TableRow>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="#a1d8e4" />
 
             <TableRow>
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_margin="10dp"
                     android:text="@string/averagePrice"
                     android:textColor="#a1d8e4"
                     android:textSize="20dp" />
@@ -75,7 +97,7 @@
                     android:id="@+id/txtView_avgPrice"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_margin="10dp"
                     android:text="@string/averagePrice"
                     android:textColor="#a1d8e4"
                     android:textSize="20dp" />
@@ -85,7 +107,7 @@
                 <TextView
                     android:layout_width="5dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_marginLeft="10dp"
                     android:text="@string/registeredPrice"
                     android:textColor="#a1d8e4"
                     android:textSize="20dp" />
@@ -93,7 +115,7 @@
                     android:id="@+id/txtView_regPrice"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_marginLeft="10dp"
                     android:textColor="#a1d8e4"
                     android:textSize="20dp"
                     android:text="@string/registeredPrice"/>
@@ -102,7 +124,7 @@
                 android:id="@+id/txtView_userPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_margin="10dp"
                 android:textSize="20dp"
                 android:text="user: "/>
 

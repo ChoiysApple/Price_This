@@ -2,7 +2,7 @@
     <string name="app_name">Price_this</string>
     <string name="productToRegister">등록할 상품 이름</string>
     <string name="registerPicture">상품 사진 올리기</string>
-    <string name="tagAddSearch">태그 추가/검색</string>
+    <string name="tag">#fruit#organic</string>
     <string name="add">추가</string>
     <string name="registerPrice">등록가: </string>
     <string name="email">이메일</string>
@@ -16,6 +16,11 @@
     <string name="registeredPrice">등록가</string>
     <string name="recommend">추천하기: </string>
     <string name="goodsTag">태그: </string>
+    <string name="question">Question</string>
+    <string name="answer">Answer</string>
+    <string name="spec">Spec</string>
+    <string name="specEx">Weight: 1kg\nFreshness: Good\nColor: Good\nSweetness: Normal</string>
+    <string name="description">description</string>
 
 
 

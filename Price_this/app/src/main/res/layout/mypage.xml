@@ -5,104 +5,132 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#E0F2F7"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="69dp">
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
-        <TableLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="50dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#fcfdf3"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="90dp"
+            tools:layout_editor_absoluteY="25dp">
 
-            <TableRow android:padding="10dp">
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="20dp"
+                android:background="@drawable/board_frame2">
 
-                <TextView
+                <TableRow android:padding="20dp">
+
+                    <ImageButton
+                        android:id="@+id/ImgBtn_profile"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="30dp"
+                        android:background="@drawable/add_picture_icon" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/TxtView_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:padding="3dp"
+                            android:text="@string/name"
+                            android:textSize="20dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/txtView_email"
+                            android:layout_width="250dp"
+                            android:layout_height="25dp"
+                            android:padding="3dp"
+                            android:text="@string/email"
+                            android:textSize="13dp" />
+
+                        <TextView
+                            android:id="@+id/txtView_point"
+                            android:layout_width="250dp"
+                            android:layout_height="30dp"
+                            android:padding="3dp"
+                            android:text="@string/point"
+                            android:textSize="15dp" />
+                    </LinearLayout>
+
+
+                </TableRow>
+
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="10dp"
-                    android:text="@string/email"
-                    android:textSize="15dp" />
+                    android:layout_height="3dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="#a1d8e4" />
 
-                <TextView
-                    android:id="@+id/txtView_email"
-                    android:layout_width="250dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/search_frame"
-                    android:padding="10dp"
-                    android:text="@string/NULL"
-                    android:textSize="15dp" />
+                <TableRow android:padding="10dp">
 
-            </TableRow>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:padding="10dp"
+                        android:text="@string/question"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
 
-            <TableRow android:padding="10dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:padding="10dp"
+                        android:text="@string/answer"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="10dp"
-                    android:text="@string/password"
-                    android:textSize="15dp" />
 
-                <TextView
-                    android:id="@+id/txtView_password"
-                    android:layout_width="250dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/search_frame"
-                    android:padding="10dp"
-                    android:textSize="15dp" />
-            </TableRow>
+                </TableRow>
 
-            <TableRow android:padding="10dp">
+                <TableRow
+                    android:layout_marginBottom="20dp">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="10dp"
-                    android:text="@string/name"
-                    android:textSize="15dp" />
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/mypage_question"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center" />
 
-                <TextView
-                    android:id="@+id/txtView_name"
-                    android:layout_width="250dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/search_frame"
-                    android:padding="10dp"
-                    android:textSize="15dp" />
-            </TableRow>
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/mypage_answer"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center" />
+                </TableRow>
 
-            <TableRow android:padding="10dp">
+            </TableLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="10dp"
-                    android:text="@string/point"
-                    android:textSize="15dp" />
+            <Button
+                android:id="@+id/btn_modify"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/btn_null"
+                android:text="@string/modify"
+                android:textSize="25dp" />
 
-                <TextView
-                    android:id="@+id/txtView_point"
-                    android:layout_width="250dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/search_frame"
-                    android:padding="10dp"
-                    android:textSize="15dp" />
-            </TableRow>
-        </TableLayout>
-
-        <Button
-            android:id="@+id/btn_modify"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_margin="30dp"
-            android:background="@drawable/btn_null"
-            android:text="@string/modify"
-            android:textSize="15dp" />
-
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </android.support.constraint.ConstraintLayout>
