@@ -5,19 +5,25 @@ import java.util.ArrayList;
 public class GoodsInfo {
 
     public int goodsPicture;
-    public String goodsPrice;
+    public String crrtgoodsPrice;
+    public String rgstgoodsPrice;
+    public String goodsRank;
     public String goodsName;
     public ArrayList<String> goodsTag;
 
-    public GoodsInfo(int goodsPicture, String goodsPrice, String goodsName) {
+    public GoodsInfo(int goodsPicture, String crrtgoodsPrice, String rgstgoodsPrice, String goodsRank, String goodsName) {
         this.goodsPicture = goodsPicture;
-        this.goodsPrice = goodsPrice;
+        this.crrtgoodsPrice = crrtgoodsPrice;
+        this.rgstgoodsPrice = rgstgoodsPrice;
+        this.goodsRank = goodsRank;
         this.goodsName = goodsName;
     }
 
-    public GoodsInfo(int goodsPicture, String goodsPrice, String goodsName, ArrayList<String> goodsTag) {
+    public GoodsInfo(int goodsPicture, String crrtgoodsPrice, String rgstgoodsPrice, String goodsRank, String goodsName, ArrayList<String> goodsTag) {
         this.goodsPicture = goodsPicture;
-        this.goodsPrice = goodsPrice;
+        this.crrtgoodsPrice = crrtgoodsPrice;
+        this.rgstgoodsPrice = rgstgoodsPrice;
+        this.goodsRank = goodsRank;
         this.goodsName = goodsName;
         this.goodsTag = goodsTag;
     }

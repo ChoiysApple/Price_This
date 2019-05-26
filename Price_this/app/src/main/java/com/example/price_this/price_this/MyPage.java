@@ -45,12 +45,13 @@ public class MyPage extends AppCompatActivity {
         tags.add("딸기");
         tags.add("음식");
         ArrayList<GoodsInfo> GoodsInfoArrayList = new ArrayList<>();
-        GoodsInfoArrayList.add(new GoodsInfo(R.drawable.berry,"5,000원", "딸기", tags));
-        GoodsInfoArrayList.add(new GoodsInfo(R.drawable.bread, "4,600원", "빵", null));
-        GoodsInfoArrayList.add(new GoodsInfo(R.drawable.noodle, "4,000원", "국수먹고싶다", null));
-        GoodsInfoArrayList.add(new GoodsInfo(R.drawable.berry,"115,000원", "금딸기", null));
-        GoodsInfoArrayList.add(new GoodsInfo(R.drawable.bread, "1,234,114,600원", "빵", null));
-        GoodsInfoArrayList.add(new GoodsInfo(R.drawable.noodle, "4,000원", "요즘누가짜장면을사천원에팔아", null));
+        GoodsInfoArrayList.add(new GoodsInfo(R.drawable.berry,"5,000원", "6,000원", "A", "딸기", tags));
+        GoodsInfoArrayList.add(new GoodsInfo(R.drawable.bread, "4,600원","6,000원", "A",  "빵", tags));
+        GoodsInfoArrayList.add(new GoodsInfo(R.drawable.noodle, "4,000원","8,000원", "B",  "국수먹고싶다", tags));
+        GoodsInfoArrayList.add(new GoodsInfo(R.drawable.berry,"115,000원", "116,000원", "S", "금딸기", tags));
+        GoodsInfoArrayList.add(new GoodsInfo(R.drawable.bread, "1,234,114,600원", "2,136,500원", "S", "빵", tags));
+        GoodsInfoArrayList.add(new GoodsInfo(R.drawable.noodle, "4,000원","6,000원", "C",  "요즘누가짜장면을사천원에팔아", tags));
+
 
         MyPageQuestion myPageQuestion = new MyPageQuestion(GoodsInfoArrayList);
         MyPageAnswer myPageAnswer = new MyPageAnswer(GoodsInfoArrayList);

@@ -55,7 +55,7 @@ public class MyPageQuestion extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 intent = new Intent(context, Product.class);
                 intent.putExtra("name", goodsInfoArrayList.get(position).goodsName);
                 intent.putExtra("image", goodsInfoArrayList.get(position).goodsPicture);
-                intent.putExtra("price", goodsInfoArrayList.get(position).goodsPrice);
+                intent.putExtra("price", goodsInfoArrayList.get(position).crrtgoodsPrice);
                 intent.putExtra("Tags", goodsInfoArrayList.get(position).goodsTag);
                 context.startActivity(intent);
                 Toast.makeText(context, "이거는 "+goodsInfoArrayList.get(position).goodsName+ "이야 으아악 누르지마", Toast.LENGTH_SHORT).show();

@@ -5,7 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#fcfdf3">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/rabbit_toolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        android:background="#a1d8e4"
+        android:scaleType="centerInside"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
     <TableLayout
+        android:layout_below="@+id/rabbit_toolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     <TableRow
@@ -22,17 +34,21 @@
 
     </TableRow>
     </TableLayout>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/btn_floating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_margin="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="525dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/btn_write_post"
         app:borderWidth="0dp"
-        app:fabSize="normal"
-        android:backgroundTint="#50b5c5"
-        android:src="@drawable/btn_write_post"/>
+        app:fabSize="normal" />
 </RelativeLayout>
 
 

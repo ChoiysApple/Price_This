@@ -2,7 +2,6 @@ package com.example.price_this.price_this;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,7 +47,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         final MyViewHolder myViewHolder = (MyViewHolder) holder;
 
         myViewHolder.imgViewPicture.setImageResource(goodsInfoArrayList.get(position).goodsPicture);
-        myViewHolder.txtViewPrice.setText(goodsInfoArrayList.get(position).goodsPrice);
+        myViewHolder.txtViewPrice.setText(goodsInfoArrayList.get(position).crrtgoodsPrice);
         myViewHolder.txtViewGoodsName.setText(goodsInfoArrayList.get(position).goodsName);
 
         myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -59,7 +58,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 intent = new Intent(context, Product.class);
                 intent.putExtra("name", goodsInfoArrayList.get(position).goodsName);
                 intent.putExtra("image", goodsInfoArrayList.get(position).goodsPicture);
-                intent.putExtra("price", goodsInfoArrayList.get(position).goodsPrice);
+                intent.putExtra("price", goodsInfoArrayList.get(position).crrtgoodsPrice);
                 intent.putExtra("Tags", goodsInfoArrayList.get(position).goodsTag);
                 context.startActivity(intent);
                 Toast.makeText(context, "이거는 "+goodsInfoArrayList.get(position).goodsName+ "이야 으아악 누르지마", Toast.LENGTH_SHORT).show();
