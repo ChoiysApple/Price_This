@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -74,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
+                Log.d("SIGNIN", "exception"+e);
                 Toast.makeText(getApplicationContext(), "Google Sign in Failed", Toast.LENGTH_LONG).show();
             }
         }
@@ -88,10 +90,10 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // 로그인 성공
+                            // sign in successful
                             Toast.makeText(MainActivity.this, "success_login", Toast.LENGTH_SHORT).show();
                         } else {
-                            // 로그인 실패
+                            //  sign in failed
                             Toast.makeText(MainActivity.this, "failed_login", Toast.LENGTH_SHORT).show();
                         }
 
