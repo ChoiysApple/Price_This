@@ -25,14 +25,23 @@
         android:src="@drawable/price_this"
         />
 
-    <com.google.android.gms.common.SignInButton
-        android:id = "@+id/btn_googleSignin"
+    <Button
+        android:id = "@+id/btn_signin"
         android:layout_below="@+id/coin_rabbit_rogo"
         android:layout_marginTop="170dp"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="sign in with google"
+        android:text="Sign in"
+        />
+    <Button
+        android:id = "@+id/btn_signup"
+        android:layout_below="@+id/btn_signin"
+        android:layout_marginTop="0dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign up"
         />
 
 
