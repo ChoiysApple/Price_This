@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Register"></activity>
+        <activity android:name=".MainApp"></activity>
         <activity android:name=".MyPage"></activity>
         <activity android:name=".Product"></activity>
         <activity android:name=".signIn"></activity>
