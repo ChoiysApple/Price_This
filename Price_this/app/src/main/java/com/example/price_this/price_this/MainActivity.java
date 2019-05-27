@@ -47,11 +47,17 @@ public class MainActivity extends AppCompatActivity {
 
         //Google sign in button
         btn_googleSignin = (SignInButton) findViewById(R.id.btn_googleSignin);
+        btn_googleSignin.setSize(SignInButton.SIZE_WIDE);
         btn_googleSignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*
                 Intent signInIntent = googleSignInClient.getSignInIntent();
                 startActivityForResult(signInIntent, RC_SIGN_IN);
+                */
+                Intent intent = new Intent(getApplicationContext(), MainApp.class);
+                startActivity(intent);
+
             }
         });//   [END onClickListener]
 

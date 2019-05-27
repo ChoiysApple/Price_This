@@ -21,7 +21,8 @@
     <string name="spec">Spec</string>
     <string name="specEx">Weight: 1kg\nFreshness: Good\nColor: Good\nSweetness: Normal</string>
     <string name="description">description</string>
-
+    <string name="navigation_drawer_open">Drawer Open</string>
+    <string name="navigation_drawer_close">Drawer Closed</string>
 
 
 </resources>
