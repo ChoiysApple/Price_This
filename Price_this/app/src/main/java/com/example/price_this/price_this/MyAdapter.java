@@ -2,6 +2,7 @@ package com.example.price_this.price_this;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +11,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Registry;
+import com.bumptech.glide.module.AppGlideModule;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private Context context;
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView imgViewPicture;
         TextView txtViewPrice;
@@ -36,6 +46,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view, parent, false);
+        context = parent.getContext();
 
         return new MyViewHolder(v);
     }
@@ -46,7 +57,15 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         final MyViewHolder myViewHolder = (MyViewHolder) holder;
 
-        myViewHolder.imgViewPicture.setImageResource(goodsInfoArrayList.get(position).goodsPicture);
+        FirebaseStorage storage = FirebaseStorage.getInstance("gs://price-this.appspot.com/");
+        StorageReference storageRef = storage.getReference();
+        StorageReference spaceRef = storageRef.child("20190502_5747.png");
+
+        Glide.with(context)
+                .load(spaceRef)
+                .into(myViewHolder.imgViewPicture);
+
+        //myViewHolder.imgViewPicture.setImageResource(goodsInfoArrayList.get(position).goodsPicture);
         myViewHolder.txtViewPrice.setText(goodsInfoArrayList.get(position).crrtgoodsPrice);
         myViewHolder.txtViewGoodsName.setText(goodsInfoArrayList.get(position).goodsName);
 
@@ -64,6 +83,13 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 Toast.makeText(context, "이거는 "+goodsInfoArrayList.get(position).goodsName+ "이야 으아악 누르지마", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    public class MyGlideModule extends AppGlideModule {
+        @Override
+        public void registerComponents(Context context, Glide glide, Registry registry) {
+            registry.append(StorageReference.class, InputStream.class,
+                    new FirebaseImageLoader.Factory());
+        }
     }
 
     @Override

@@ -4,14 +4,15 @@ import java.util.ArrayList;
 
 public class GoodsInfo {
 
-    public int goodsPicture;
+    public String goodsPicture;
     public String crrtgoodsPrice;
     public String rgstgoodsPrice;
     public String goodsRank;
     public String goodsName;
-    public ArrayList<String> goodsTag;
+    public ArrayList goodsTag;
+    //public ArrayList<String> goodsTag;
 
-    public GoodsInfo(int goodsPicture, String crrtgoodsPrice, String rgstgoodsPrice, String goodsRank, String goodsName) {
+    public GoodsInfo(String goodsPicture, String crrtgoodsPrice, String rgstgoodsPrice, String goodsRank, String goodsName) {
         this.goodsPicture = goodsPicture;
         this.crrtgoodsPrice = crrtgoodsPrice;
         this.rgstgoodsPrice = rgstgoodsPrice;
@@ -19,7 +20,7 @@ public class GoodsInfo {
         this.goodsName = goodsName;
     }
 
-    public GoodsInfo(int goodsPicture, String crrtgoodsPrice, String rgstgoodsPrice, String goodsRank, String goodsName, ArrayList<String> goodsTag) {
+    public GoodsInfo(String goodsPicture, String crrtgoodsPrice, String rgstgoodsPrice, String goodsRank, String goodsName, ArrayList goodsTag) {
         this.goodsPicture = goodsPicture;
         this.crrtgoodsPrice = crrtgoodsPrice;
         this.rgstgoodsPrice = rgstgoodsPrice;
@@ -28,7 +29,7 @@ public class GoodsInfo {
         this.goodsTag = goodsTag;
     }
 
-    public int getGoodsPicture(){
+    /*public int getGoodsPicture(){
         return goodsPicture;
-    }
+    }*/
 }
