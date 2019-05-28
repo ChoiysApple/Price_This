@@ -54,6 +54,7 @@ public class signIn extends AppCompatActivity {
                             Toast.makeText(signIn.this,"success_login", Toast.LENGTH_SHORT).show();
                             Intent intent=new Intent(signIn.this,MainApp.class);
                             startActivity(intent);
+
                         } else {
                             // 로그인 실패
                             Toast.makeText(signIn.this, "Invalid email/password", Toast.LENGTH_SHORT).show();

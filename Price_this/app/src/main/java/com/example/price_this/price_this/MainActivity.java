@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
     }//     [END onCreate]
 
-    private void createUser(String email, String password){
+    private void createUser(String email, final String password){
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -76,37 +76,20 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
-
-                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-                            /*set username*/
-                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                    .setDisplayName(mUsernameField.getText().toString())
-                                    .build();
-
-                            final String name = user.getDisplayName();
-                            user.updateProfile(profileUpdates)
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()) {
-                                                Log.d(TAG, name);
-                                            }
-                                        }
-                                    });
-
                             Toast.makeText(getApplicationContext(), "SIgn up succesful", Toast.LENGTH_LONG).show();
+
                             Intent intent=new Intent(MainActivity.this,signIn.class);
                             startActivity(intent);
 
                         } else {
                             // If sign in fails, display a message to the user.
-                            try {
-                                throw task.getException();
-                            } catch(FirebaseAuthWeakPasswordException e) {
+                            if(password.length() < 6)
                                 account_guide.setTextColor(Color.RED);
-                            } catch (Exception e) {
+                            else{
+                                account_guide.setTextColor(Color.RED);
+                                account_guide.setText("@string/email_condition");
                             }
+
 
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(MainActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
