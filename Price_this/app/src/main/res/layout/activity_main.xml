@@ -77,6 +77,19 @@
 
         </android.support.design.widget.TextInputLayout>
 
+
+
+
+            <TextView android:id="@+id/account_guide"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text = "@string/password_condition" />
+
+
+
+
+
+
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/btn_signup"
             android:layout_width="fill_parent"
