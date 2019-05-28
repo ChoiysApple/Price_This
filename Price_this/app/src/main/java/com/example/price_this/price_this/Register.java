@@ -42,6 +42,8 @@ public class Register extends AppCompatActivity {
     private DatabaseReference databaseReference = firebaseDatabase.getReference();
 
     private Uri filePath;
+    StorageReference pathReference;
+    String pathImg;
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -65,11 +67,6 @@ public class Register extends AppCompatActivity {
 
         final int id = 0;
         int date = 0;
-        String description = editTxt_description.getText().toString();
-        String productName = editTxt_productName.getText().toString();
-        String tag = editTxt_tag.getText().toString();
-        String spec = editTxt_spec.getText().toString();
-        String price = editTxt_price.getText().toString();
 
         imgBtn_productImg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,22 +78,21 @@ public class Register extends AppCompatActivity {
             }
         });
 
+
         final ArrayList<String> tags = new ArrayList<>();
 
-        //final ArrayList<GoodsInfo> GoodsInfoArrayList = new ArrayList<>();
-        //GoodsInfoArrayList.add(new GoodsInfo(id, date, imgPath,"5,000원", price, "A", productName, tags));
-
-
-        System.out.println(id+productName);
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                uploadFile();
+
                 String description = editTxt_description.getText().toString();
                 String productName = editTxt_productName.getText().toString();
                 String tag = editTxt_tag.getText().toString();
                 String spec = editTxt_spec.getText().toString();
                 String price = editTxt_price.getText().toString();
-                String img = filePath.toString();
+                String img = pathImg;
+                //String img = pathReference.toString();
 
                 String[] tagss = tag.split("#");
                 for(int i=0; i<tagss.length; i++){
@@ -104,8 +100,6 @@ public class Register extends AppCompatActivity {
                 }
                 FirebasePost post = new FirebasePost(id, productName, img, description, tags, spec, price);
                 databaseReference.child("test").push().setValue(post.toMap());
-                //databaseReference.child("text").push().setValue(tags);
-                uploadFile();
                 finish();
             }
         });
@@ -158,8 +152,9 @@ public class Register extends AppCompatActivity {
         }
     }
 
-    //upload the file
+    //upload the image file
     private void uploadFile() {
+        String filename = "";
         //업로드할 파일이 있으면 수행
         if (filePath != null) {
             //업로드 진행 Dialog 보이기
@@ -173,9 +168,9 @@ public class Register extends AppCompatActivity {
             //Unique한 파일명을 만들자.
             SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMHH_mmss");
             Date now = new Date();
-            String filename = formatter.format(now) + ".png";
+            filename = formatter.format(now) + ".png";
             //storage 주소와 폴더 파일명을 지정해 준다.
-            StorageReference storageRef = storage.getReferenceFromUrl("gs://price-this.appspot.com").child("images/" + filename);
+            StorageReference storageRef = storage.getReferenceFromUrl("gs://price-this.appspot.com").child(filename);
             //올라가거라...
             storageRef.putFile(filePath)
                     //성공시
@@ -184,6 +179,7 @@ public class Register extends AppCompatActivity {
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             //progressDialog.dismiss(); //업로드 진행 Dialog 상자 닫기
                             Toast.makeText(getApplicationContext(), "업로드 완료!", Toast.LENGTH_SHORT).show();
+
                         }
                     })
                     //실패시
@@ -204,9 +200,17 @@ public class Register extends AppCompatActivity {
                             progressDialog.setMessage("Uploaded " + ((int) progress) + "% ...");
                         }
                     });
+
         } else {
             Toast.makeText(getApplicationContext(), "파일을 먼저 선택하세요.", Toast.LENGTH_SHORT).show();
         }
+
+
+        FirebaseStorage storage = FirebaseStorage.getInstance("gs://price-this.appspot.com");
+        StorageReference storageRef = storage.getReference();
+        pathReference = storageRef.child(filename);
+        pathImg = filename;
+
     }
 
 }
