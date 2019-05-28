@@ -23,6 +23,10 @@
     <string name="description">description</string>
     <string name="navigation_drawer_open">Drawer Open</string>
     <string name="navigation_drawer_close">Drawer Closed</string>
+    <string name="sign_in">로그인</string>
+    <string name="sign_up">시작하기</string>
+    <string name="sign_in_guide">처음이 아니신가요? 로그인하기</string>
+
 
 
 </resources>
