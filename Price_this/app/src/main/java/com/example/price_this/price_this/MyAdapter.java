@@ -58,7 +58,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         FirebaseStorage storage = FirebaseStorage.getInstance("gs://price-this.appspot.com/");
         StorageReference storageRef = storage.getReference();
-        StorageReference pathReference = storageRef.child("images/20190505_0812.png");
+        StorageReference pathReference = storageRef.child(goodsInfoArrayList.get(position).goodsPicture);
 
         pathReference.getBytes(Long.MAX_VALUE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
