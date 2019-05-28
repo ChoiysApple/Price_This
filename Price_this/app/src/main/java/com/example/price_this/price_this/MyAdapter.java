@@ -2,6 +2,8 @@ package com.example.price_this.price_this;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,14 +13,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.Registry;
-import com.bumptech.glide.module.AppGlideModule;
-import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -59,13 +58,21 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         FirebaseStorage storage = FirebaseStorage.getInstance("gs://price-this.appspot.com/");
         StorageReference storageRef = storage.getReference();
-        StorageReference spaceRef = storageRef.child("20190502_5747.png");
+        StorageReference pathReference = storageRef.child("images/20190505_0812.png");
 
-        Glide.with(context)
-                .load(spaceRef)
-                .into(myViewHolder.imgViewPicture);
+        pathReference.getBytes(Long.MAX_VALUE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                myViewHolder.imgViewPicture.setImageBitmap(bitmap);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                myViewHolder.txtViewGoodsName.setText(String.format("Failure: %s", exception.getMessage()));
+            }
+        });
 
-        //myViewHolder.imgViewPicture.setImageResource(goodsInfoArrayList.get(position).goodsPicture);
         myViewHolder.txtViewPrice.setText(goodsInfoArrayList.get(position).crrtgoodsPrice);
         myViewHolder.txtViewGoodsName.setText(goodsInfoArrayList.get(position).goodsName);
 
@@ -84,13 +91,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             }
         });
     }
-    public class MyGlideModule extends AppGlideModule {
-        @Override
-        public void registerComponents(Context context, Glide glide, Registry registry) {
-            registry.append(StorageReference.class, InputStream.class,
-                    new FirebaseImageLoader.Factory());
-        }
-    }
+
 
     @Override
     public int getItemCount() {
