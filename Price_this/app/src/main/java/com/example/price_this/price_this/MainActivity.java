@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         mPasswordField = findViewById(R.id.field_password);
         mUsernameField = findViewById(R.id.field_username);
 
-        sign_up = (Button) findViewById(R.id.btn_signin);
+        sign_up = (Button) findViewById(R.id.btn_signup);
         sign_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

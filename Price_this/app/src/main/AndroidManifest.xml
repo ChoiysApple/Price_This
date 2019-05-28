@@ -14,7 +14,6 @@
         <activity android:name=".MyPage"></activity>
         <activity android:name=".Product"></activity>
         <activity android:name=".signIn"></activity>
-        <activity android:name=".MainApp"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
