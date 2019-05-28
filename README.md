@@ -16,13 +16,13 @@ User can post question about the proper price of certain product and users will 
 
 # UI concept
 **Main** 
-![main_comment](./documents/Concept_image/with_comment/main_comment.png)
+![main_comment](./documents/Concept_image/comment/main_comment.png)
 
 **Bottom Menu**
-![bottomMenu_comment](./documents/Concept_image/with_comment/bottomMenu_comment.png)
+![bottomMenu_comment](./documents/Concept_image/comment/bottomMenu_comment.png)
 
 **Box** 
-![box_comment](./documents/Concept_image/with_comment/box_comment.png)
+![box_comment](./documents/Concept_image/comment/box_comment.png)
 
 **Ask Question**
-![post_comment](./documents/Concept_image/with_comment/post_comment.png)
+![post_comment](./documents/Concept_image/comment/post_comment.png)
