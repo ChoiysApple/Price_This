@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -88,18 +89,14 @@ public class MainApp extends AppCompatActivity
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final ArrayList<GoodsInfo> GoodsInfoArrayList = new ArrayList<>();
-
                 for (DataSnapshot messageData : dataSnapshot.getChildren()) {
 
                     // child 내에 있는 데이터만큼 반복합니다.
-                    FirebaseLoad msg = messageData.getValue(FirebaseLoad.class);
+                   FirebaseLoad msg = messageData.getValue(FirebaseLoad.class);
+                   GoodsInfoArrayList.add(new GoodsInfo(msg.img, msg.price, msg.price, "A", msg.name, msg.tags));
+                   MyAdapter myAdapter = new MyAdapter(GoodsInfoArrayList);
 
-                    GoodsInfoArrayList.add(new GoodsInfo(msg.img, msg.price, msg.price, "A", msg.name, msg.tags));
-                    MyAdapter myAdapter = new MyAdapter(GoodsInfoArrayList);
-
-                    mRecyclerView.setAdapter(myAdapter);
-
-
+                   mRecyclerView.setAdapter(myAdapter);
                 }
             }
 
@@ -112,7 +109,7 @@ public class MainApp extends AppCompatActivity
     }
 
     public static class FirebaseLoad {
-        public int id;
+        public String id;
         public String name;
         public String img;
         public String desc;
@@ -120,7 +117,7 @@ public class MainApp extends AppCompatActivity
         public String spec;
         public String price;
         public FirebaseLoad(){}
-        public FirebaseLoad(int id, String name, String img, String desc, ArrayList<String> tags, String spec, String price){
+        public FirebaseLoad(String id, String name, String img, String desc, ArrayList<String> tags, String spec, String price){
             this.id = id;
             this.name = name;
             this.img = img;
