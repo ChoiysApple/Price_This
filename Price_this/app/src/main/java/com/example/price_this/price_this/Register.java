@@ -65,7 +65,7 @@ public class Register extends AppCompatActivity {
         editTxt_price = findViewById(R.id.editText_priceToRegister);
 
 
-        final int id = 0;
+        final String id = "000000";
         int date = 0;
 
         imgBtn_productImg.setOnClickListener(new View.OnClickListener() {
@@ -106,7 +106,7 @@ public class Register extends AppCompatActivity {
     }
 
     public class FirebasePost {
-        public int id;
+        public String id;
         public String name;
         public String img;
         public String desc;
@@ -114,7 +114,7 @@ public class Register extends AppCompatActivity {
         public String spec;
         public String price;
         public FirebasePost(){}
-        public FirebasePost(int id, String name, String img, String desc, ArrayList tags, String spec, String price){
+        public FirebasePost(String id, String name, String img, String desc, ArrayList tags, String spec, String price){
             this.id = id;
             this.name = name;
             this.img = img;
