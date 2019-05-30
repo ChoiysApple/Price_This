@@ -87,11 +87,9 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 intent.putExtra("price", goodsInfoArrayList.get(position).crrtgoodsPrice);
                 intent.putExtra("Tags", goodsInfoArrayList.get(position).goodsTag);
                 context.startActivity(intent);
-                Toast.makeText(context, "이거는 "+goodsInfoArrayList.get(position).goodsName+ "이야 으아악 누르지마", Toast.LENGTH_SHORT).show();
             }
         });
     }
-
 
     @Override
     public int getItemCount() {

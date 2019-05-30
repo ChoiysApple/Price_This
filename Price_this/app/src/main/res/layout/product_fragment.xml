@@ -48,14 +48,14 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_margin="5dp"
                     android:text="@string/goodsTag"
                     android:textColor="#a1d8e4"
                     android:textSize="20dp" />
 
                 <TextView
                     android:id="@+id/txtView_goodsTag"
-                    android:layout_width="0dp"
+                    android:layout_width="210dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:textColor="#a1d8e4"

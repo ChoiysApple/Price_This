@@ -80,27 +80,37 @@ public class Register extends AppCompatActivity {
 
 
         final ArrayList<String> tags = new ArrayList<>();
-
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uploadFile();
-
                 String description = editTxt_description.getText().toString();
                 String productName = editTxt_productName.getText().toString();
                 String tag = editTxt_tag.getText().toString();
                 String spec = editTxt_spec.getText().toString();
                 String price = editTxt_price.getText().toString();
-                String img = pathImg;
                 //String img = pathReference.toString();
-
-                String[] tagss = tag.split("#");
-                for(int i=0; i<tagss.length; i++){
-                    tags.add(tagss[i]);
+                if(tag.isEmpty()){
+                    Toast.makeText(getApplicationContext(), "상품 태그를 하나 이상 입력해 주세요!", Toast.LENGTH_SHORT).show();
                 }
-                FirebasePost post = new FirebasePost(id, productName, img, description, tags, spec, price);
-                databaseReference.child("test").push().setValue(post.toMap());
-                finish();
+                else if(productName.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "상품 이름을 입력해 주세요!", Toast.LENGTH_SHORT).show();
+                }
+                else if(price.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "상품의 초기 가격을 입력해 주세요!", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    uploadFile();
+                    String img = pathImg;
+                    tag = tag.replaceAll("\\p{Z}", "");
+                    tag = tag.replaceAll(" ", "");//공백제거
+                    String[] tagss = tag.split("#");
+                    for(int i=0; i<tagss.length; i++){
+                        tags.add(tagss[i]);
+                    }
+                    FirebasePost post = new FirebasePost(id, productName, img, description, tags, spec, price);
+                    databaseReference.child("test").push().setValue(post.toMap());
+                    finish();
+                }
             }
         });
     }
@@ -178,7 +188,7 @@ public class Register extends AppCompatActivity {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             //progressDialog.dismiss(); //업로드 진행 Dialog 상자 닫기
-                            Toast.makeText(getApplicationContext(), "업로드 완료!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "등록 완료!", Toast.LENGTH_SHORT).show();
 
                         }
                     })
@@ -187,7 +197,7 @@ public class Register extends AppCompatActivity {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             //progressDialog.dismiss();
-                            Toast.makeText(getApplicationContext(), "업로드 실패!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "등록 실패!", Toast.LENGTH_SHORT).show();
                         }
                     })
                     //진행중
@@ -205,12 +215,10 @@ public class Register extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "파일을 먼저 선택하세요.", Toast.LENGTH_SHORT).show();
         }
 
-
         FirebaseStorage storage = FirebaseStorage.getInstance("gs://price-this.appspot.com");
         StorageReference storageRef = storage.getReference();
         pathReference = storageRef.child(filename);
         pathImg = filename;
-
     }
 
 }

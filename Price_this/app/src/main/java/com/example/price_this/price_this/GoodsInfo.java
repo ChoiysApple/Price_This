@@ -28,8 +28,4 @@ public class GoodsInfo {
         this.goodsName = goodsName;
         this.goodsTag = goodsTag;
     }
-
-    /*public int getGoodsPicture(){
-        return goodsPicture;
-    }*/
 }

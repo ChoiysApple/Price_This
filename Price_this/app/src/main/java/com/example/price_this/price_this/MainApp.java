@@ -93,7 +93,7 @@ public class MainApp extends AppCompatActivity
 
                     // child 내에 있는 데이터만큼 반복합니다.
                    FirebaseLoad msg = messageData.getValue(FirebaseLoad.class);
-                   GoodsInfoArrayList.add(new GoodsInfo(msg.img, msg.price, msg.price, "A", msg.name, msg.tags));
+                   GoodsInfoArrayList.add(0, new GoodsInfo(msg.img, msg.price, msg.price, "A", msg.name, msg.tags));
                    MyAdapter myAdapter = new MyAdapter(GoodsInfoArrayList);
 
                    mRecyclerView.setAdapter(myAdapter);

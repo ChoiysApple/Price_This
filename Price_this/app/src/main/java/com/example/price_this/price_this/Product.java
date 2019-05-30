@@ -45,8 +45,9 @@ public class Product extends AppCompatActivity {
         txtView_avgPrice.setText(intent.getStringExtra("price"));
         //태그띄우기
         ArrayList<String> tags = intent.getStringArrayListExtra("Tags");
+        //DB에 태그 스트링 split하여 넣을 때 0번째 어레이가 비게 되어서 1번 어레이부터 불러오게 해놨습니다.
         if(tags!=null){
-            for(int i=0; i<tags.size();i++) {
+            for(int i=1; i<tags.size();i++) {
                 txtView_goodsTag.append(tags.get(i));
                 if (i != tags.size()-1){
                     txtView_goodsTag.append(", ");
