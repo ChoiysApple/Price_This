@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -154,22 +156,14 @@ public class Register extends AppCompatActivity {
         //request코드가 0이고 OK를 선택했고 data에 뭔가가 들어 있다면
         if(requestCode == 0 && resultCode == RESULT_OK){
             filePath = data.getData();
-            Log.i("uri", "uri:" + String.valueOf(filePath));
+            //Uri 파일을 Bitmap으로 만들어서 ImageView에 집어 넣는다.
+            Bitmap bitmap = null;
             try {
-                //사진파일 리사이징 코드
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inSampleSize = 4;
-                Bitmap src= BitmapFactory.decodeFile(filePath.toString(), options);
-                //Uri 파일을 Bitmap으로 만들어서 ImageView에 집어 넣는다.
-                //잠시 주석처리
-                //Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                //imgBtn_productImg.setImageBitmap(bitmap);
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                imgBtn_productImg.setImageBitmap(bitmap);
-
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            imgBtn_productImg.setImageBitmap(bitmap);
         }
     }
 
@@ -178,14 +172,18 @@ public class Register extends AppCompatActivity {
         String filename = "";
         //업로드할 파일이 있으면 수행
         if (filePath != null) {
+            //이미지 해상도 낮추기 -> 퀄리티 65 : 해상도 원본 대비 65퍼센트
+            Bitmap bitmap = ((BitmapDrawable)imgBtn_productImg.getDrawable()).getBitmap();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 65, baos);
+            byte[] data = baos.toByteArray();
+
             //업로드 진행 Dialog 보이기
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("업로드중...");
             progressDialog.show();
-
             //storage
             FirebaseStorage storage = FirebaseStorage.getInstance();
-
             //Unique한 파일명을 만들자.
             SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMHH_mmss");
             Date now = new Date();
@@ -193,14 +191,13 @@ public class Register extends AppCompatActivity {
             //storage 주소와 폴더 파일명을 지정해 준다.
             StorageReference storageRef = storage.getReferenceFromUrl("gs://price-this.appspot.com").child(filename);
             //올라가거라...
-            storageRef.putFile(filePath)
+            storageRef.putBytes(data)
                     //성공시
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             //progressDialog.dismiss(); //업로드 진행 Dialog 상자 닫기
                             Toast.makeText(getApplicationContext(), "등록 완료!", Toast.LENGTH_SHORT).show();
-
                         }
                     })
                     //실패시
