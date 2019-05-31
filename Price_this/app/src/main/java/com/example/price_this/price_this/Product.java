@@ -35,6 +35,7 @@ public class Product extends AppCompatActivity {
     TextView txtView_avgPrice, txtView_regPrice, txtView_userPrice;
     TextView txtView_priceToRegister;
     TextView txtView_goodsTag;
+    TextView txtView_spec, txtView_desc;
     ImageView imgView_productImg;
     Button btn_register;
 
@@ -57,6 +58,9 @@ public class Product extends AppCompatActivity {
         txtView_userPrice = findViewById(R.id.txtView_userPrice);
         txtView_priceToRegister = findViewById(R.id.txtView_priceToRegister);
         txtView_goodsTag = findViewById(R.id.txtView_goodsTag);
+        txtView_spec = findViewById(R.id.txtView_spec);
+        txtView_desc = findViewById(R.id.txtVIew_desc);
+
         imgView_productImg = findViewById(R.id.imgView_productImg);
         btn_register = findViewById(R.id.btn_register);
 
@@ -72,7 +76,19 @@ public class Product extends AppCompatActivity {
                 if(dataSnapshot.exists()){
                     FirebaseLoad data = dataSnapshot.getValue(FirebaseLoad.class);
                     txtView_productName.setText(data.name);
-                    txtView_avgPrice.setText(data.price);
+                    txtView_regPrice.setText(data.price);
+                    txtView_desc.setText(data.description);
+                    txtView_spec.setText(data.spec);
+                    //태그띄우기
+                    ArrayList<String> tags = data.tags;
+                    if(tags!=null){
+                        for(int i=1; i<tags.size();i++) {
+                            txtView_goodsTag.append(tags.get(i));
+                            if (i != tags.size()-1){
+                                txtView_goodsTag.append(", ");
+                            }
+                        }
+                    }
                     FirebaseStorage storage = FirebaseStorage.getInstance("gs://price-this.appspot.com/");
                     StorageReference storageRef = storage.getReference();
                     StorageReference pathReference = storageRef.child(data.img);
@@ -99,16 +115,7 @@ public class Product extends AppCompatActivity {
 
 
 
-        //태그띄우기
-        ArrayList<String> tags = intent.getStringArrayListExtra("Tags");
-        if(tags!=null){
-            for(int i=1; i<tags.size();i++) {
-                txtView_goodsTag.append(tags.get(i));
-                if (i != tags.size()-1){
-                    txtView_goodsTag.append(", ");
-                }
-            }
-        }
+
 
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,7 +128,7 @@ public class Product extends AppCompatActivity {
         public String id;
         public String name;
         public String img;
-        public String desc;
+        public String description;
         public ArrayList<String> tags;
         public String spec;
         public String price;
@@ -133,7 +140,7 @@ public class Product extends AppCompatActivity {
             this.id = id;
             this.name = name;
             this.img = img;
-            this.desc = desc;
+            this.description = desc;
             this.tags = tags;
             this.spec = spec;
             this.price = price;

@@ -114,7 +114,6 @@ public class Register extends AppCompatActivity {
                     }
                     FirebasePost post = new FirebasePost(id, productName, img, description, tags, spec, price);
                     String key = databaseReference.child("test").push().getKey();
-                    System.out.println("keyyyyy" + key);
                     post.id= key;
                     databaseReference.child("test").child(key).setValue(post.toMap());
 
