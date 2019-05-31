@@ -3,14 +3,17 @@ package com.example.price_this.price_this;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -151,11 +154,19 @@ public class Register extends AppCompatActivity {
         //request코드가 0이고 OK를 선택했고 data에 뭔가가 들어 있다면
         if(requestCode == 0 && resultCode == RESULT_OK){
             filePath = data.getData();
-            //Log.d(TAG, "uri:" + String.valueOf(filePath));
+            Log.i("uri", "uri:" + String.valueOf(filePath));
             try {
+                //사진파일 리사이징 코드
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inSampleSize = 4;
+                Bitmap src= BitmapFactory.decodeFile(filePath.toString(), options);
                 //Uri 파일을 Bitmap으로 만들어서 ImageView에 집어 넣는다.
+                //잠시 주석처리
+                //Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                //imgBtn_productImg.setImageBitmap(bitmap);
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 imgBtn_productImg.setImageBitmap(bitmap);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
