@@ -27,6 +27,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -91,9 +93,9 @@ public class MainApp extends AppCompatActivity
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                     // child 내에 있는 데이터만큼 반복합니다.
                     FirebaseLoad msg = dataSnapshot.getValue(FirebaseLoad.class);
-                    GoodsInfoArrayList.add(0, new GoodsInfo(msg.img, msg.price, msg.price, "A", msg.name, msg.tags));
+                    GoodsInfoArrayList.add(new GoodsInfo(msg.id, msg.name, msg.img, msg.price));
                     MyAdapter myAdapter = new MyAdapter(GoodsInfoArrayList);
-
+                    Collections.reverse(GoodsInfoArrayList);
                     mRecyclerView.setAdapter(myAdapter);
             }
             @Override
