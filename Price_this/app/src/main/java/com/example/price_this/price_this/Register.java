@@ -113,7 +113,11 @@ public class Register extends AppCompatActivity {
                         tags.add(tagss[i]);
                     }
                     FirebasePost post = new FirebasePost(id, productName, img, description, tags, spec, price);
-                    databaseReference.child("test").push().setValue(post.toMap());
+                    String key = databaseReference.child("test").push().getKey();
+                    System.out.println("keyyyyy" + key);
+                    post.id= key;
+                    databaseReference.child("test").child(key).setValue(post.toMap());
+
                     finish();
                 }
             }

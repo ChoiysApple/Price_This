@@ -8,7 +8,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -28,6 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -90,12 +90,12 @@ public class MainApp extends AppCompatActivity
         mReference.addChildEventListener(new ChildEventListener(){
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                    // child 내에 있는 데이터만큼 반복합니다.
-                    FirebaseLoad msg = dataSnapshot.getValue(FirebaseLoad.class);
-                    GoodsInfoArrayList.add(0, new GoodsInfo(msg.img, msg.price, msg.price, "A", msg.name, msg.tags));
-                    MyAdapter myAdapter = new MyAdapter(GoodsInfoArrayList);
-
-                    mRecyclerView.setAdapter(myAdapter);
+                // child 내에 있는 데이터만큼 반복합니다.
+                FirebaseLoad msg = dataSnapshot.getValue(FirebaseLoad.class);
+                GoodsInfoArrayList.add(0, new GoodsInfo(msg.id, msg.name, msg.img, msg.price));
+                //Collections.reverse(GoodsInfoArrayList);
+                MyAdapter myAdapter = new MyAdapter(GoodsInfoArrayList);
+                mRecyclerView.setAdapter(myAdapter);
             }
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -117,6 +117,8 @@ public class MainApp extends AppCompatActivity
 
             }
         });
+
+
 /*
         mReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -171,36 +173,36 @@ public class MainApp extends AppCompatActivity
         }
     }
 
-/*    private void initDatabase(){
-        mChild = new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+    /*    private void initDatabase(){
+            mChild = new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-            }
+                }
 
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-            }
+                }
 
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
 
-            }
+                }
 
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-            }
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        };
-        mReference.addChildEventListener(mChild);
-    }
-*/
+                }
+            };
+            mReference.addChildEventListener(mChild);
+        }
+    */
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawerLayout);
