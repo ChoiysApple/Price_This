@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.ActionCodeSettings;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
     static final String PREF_USER_ACCOUNT = "account";
     SharedPreferences auto;
     SharedPreferences.Editor toEdit;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +122,29 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void sendEmailVerificationWithContinueUrl() {
+        // [START send_email_verification_with_continue_url]
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+
+        String url = "http://www.example.com/verify?uid=" + user.getUid();
+        ActionCodeSettings actionCodeSettings = ActionCodeSettings.newBuilder()
+                .setUrl(url)
+                .setIOSBundleId("com.example.ios")
+                // The default for this is populated with the current android package name.
+                .setAndroidPackageName("com.example.android", false, null)
+                .build();
+
+        user.sendEmailVerification(actionCodeSettings)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "Email sent.");
+                        }
+                    }
+                });
+    }
 
 
 
