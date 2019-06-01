@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,13 +41,18 @@ public class signIn extends AppCompatActivity {
         mEmailField = findViewById(R.id.field_email);
         mPasswordField = findViewById(R.id.field_password);
 
-
         sign_in = (ImageButton) findViewById(R.id.btn_signin);
         sign_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loginUser(mEmailField.getText().toString(), mPasswordField.getText().toString());
-                Toast.makeText(signIn.this,"로그인 중입니다...", Toast.LENGTH_SHORT).show();
+                try {
+                    saved_email = mEmailField.getText().toString();
+                    saved_password = mPasswordField.getText().toString();
+                    loginUser(mEmailField.getText().toString(), mPasswordField.getText().toString());
+                    Toast.makeText(signIn.this, "로그인 중입니다...", Toast.LENGTH_SHORT).show();
+                }catch (IllegalArgumentException e){
+                    Toast.makeText(signIn.this, "이메일, 비밀번호를 입력하세요", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -54,14 +60,16 @@ public class signIn extends AppCompatActivity {
 
     }//     [END onCreate]
 
-    private void loginUser(final String email, final String password) {
-        firebaseAuth.signInWithEmailAndPassword(email, password)
+    private void loginUser(String email, String password) {
+        if (mEmailField.getText().toString() == null || mPasswordField.getText().toString() == null)
+            return;
+            firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // 로그인 성공
-                            saveAccountInfo(email, password);
+                            saveAccountInfo(saved_email, saved_password);
                             Toast.makeText(signIn.this, "환영합니다", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(signIn.this, MainApp.class);
                             startActivity(intent);
