@@ -85,7 +85,6 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
                 intent.putExtra("id", goodsInfoArrayList.get(position).id);
                 context.startActivity(intent);
-                Toast.makeText(context, "이거는 "+goodsInfoArrayList.get(position).goodsName+ "이야 으아악 누르지마", Toast.LENGTH_SHORT).show();
             }
         });
     }

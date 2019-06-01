@@ -12,13 +12,13 @@
     <string name="modify">수정하기</string>
     <string name="point">포인트</string>
     <string name="NULL">null</string>
-    <string name="averagePrice">평균가</string>
-    <string name="registeredPrice">등록가</string>
+    <string name="averagePrice">평균가:</string>
+    <string name="registeredPrice">등록가:</string>
     <string name="recommend">추천하기: </string>
     <string name="goodsTag">태그: </string>
     <string name="question">Question</string>
     <string name="answer">Answer</string>
-    <string name="spec">Spec</string>
+    <string name="spec">특징 및 상태:</string>
     <string name="specEx">Weight: 1kg\nFreshness: Good\nColor: Good\nSweetness: Normal</string>
     <string name="description">description</string>
     <string name="navigation_drawer_open">Drawer Open</string>

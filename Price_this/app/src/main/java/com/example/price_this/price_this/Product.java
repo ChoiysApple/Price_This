@@ -40,10 +40,7 @@ public class Product extends AppCompatActivity {
     TextView txtView_spec, txtView_desc;
     ImageView imgView_productImg;
     Button btn_register;
-
     String id;
-
-
 
     private FirebaseDatabase mDatabase;
     private DatabaseReference mReference;
@@ -80,6 +77,23 @@ public class Product extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     FirebaseLoad data = dataSnapshot.getValue(FirebaseLoad.class);
+                    FirebaseStorage storage = FirebaseStorage.getInstance("gs://price-this.appspot.com/");
+                    StorageReference storageRef = storage.getReference();
+                    StorageReference pathReference = storageRef.child(data.img);
+
+                    pathReference.getBytes(Long.MAX_VALUE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                        @Override
+                        public void onSuccess(byte[] bytes) {
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                            Bitmap result = Bitmap.createScaledBitmap(bitmap, 1000, 1000, false);
+                            imgView_productImg.setImageBitmap(result);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            //txtViewGoodsName.setText(String.format("Failure: %s", exception.getMessage()));
+                        }
+                    });
                     txtView_productName.setText(data.name);
                     txtView_regPrice.setText(data.price);
                     txtView_desc.setText(data.description);
@@ -104,23 +118,6 @@ public class Product extends AppCompatActivity {
                             txtView_userPrice.append("user: " + userPrice.get(i) + "\n");
                         }
                     }
-                    FirebaseStorage storage = FirebaseStorage.getInstance("gs://price-this.appspot.com/");
-                    StorageReference storageRef = storage.getReference();
-                    StorageReference pathReference = storageRef.child(data.img);
-
-                    pathReference.getBytes(Long.MAX_VALUE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                        @Override
-                        public void onSuccess(byte[] bytes) {
-                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                            Bitmap result = Bitmap.createScaledBitmap(bitmap, 1000, 1000, false);
-                            imgView_productImg.setImageBitmap(result);
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) {
-                            //txtViewGoodsName.setText(String.format("Failure: %s", exception.getMessage()));
-                        }
-                    });
                 }
             }
             @Override
@@ -146,8 +143,6 @@ public class Product extends AppCompatActivity {
                             mReference.child("userPrice").setValue(data.userPrice);
                             txtView_userPrice.append("user: " + user +"\n");
                             Toast.makeText(getApplicationContext(), "가격 추천 완료", Toast.LENGTH_LONG);
-
-
                         }
                     }
                     @Override
