@@ -62,7 +62,7 @@ public class signIn extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // 로그인 성공
                             saveAccountInfo(email, password);
-                            Toast.makeText(signIn.this, "success_login", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(signIn.this, "환영합니다", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(signIn.this, MainApp.class);
                             startActivity(intent);
 
