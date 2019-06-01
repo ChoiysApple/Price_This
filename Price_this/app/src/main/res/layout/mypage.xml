@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#fcfdf3">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -50,7 +51,8 @@
                             android:padding="3dp"
                             android:text="@string/name"
                             android:textSize="20dp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:textColor="#50b5c5"/>
 
                         <TextView
                             android:id="@+id/txtView_email"
@@ -75,7 +77,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="3dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="3dp"
                     android:background="#a1d8e4" />
 
                 <TableRow android:padding="10dp">
@@ -84,19 +86,22 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:padding="10dp"
                         android:text="@string/question"
                         android:textSize="20dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="#50b5c5"
+                        />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:padding="10dp"
                         android:text="@string/answer"
                         android:textSize="20dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="#50b5c5"/>
 
 
                 </TableRow>
@@ -129,6 +134,7 @@
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/btn_null"
                 android:text="@string/modify"
+                android:textColor="#ffffff"
                 android:textSize="25dp" />
 
         </LinearLayout>

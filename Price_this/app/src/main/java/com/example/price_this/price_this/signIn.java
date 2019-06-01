@@ -40,6 +40,7 @@ public class signIn extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 loginUser(mEmailField.getText().toString(), mPasswordField.getText().toString());
+                Toast.makeText(signIn.this,"로그인 중입니다...", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -52,13 +53,13 @@ public class signIn extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // 로그인 성공
-                            Toast.makeText(signIn.this,"success_login", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(signIn.this,"어세오세요 회원님!", Toast.LENGTH_SHORT).show();
                             Intent intent=new Intent(signIn.this,MainApp.class);
                             startActivity(intent);
 
                         } else {
                             // 로그인 실패
-                            Toast.makeText(signIn.this, "Invalid email/password", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(signIn.this, "올바르지 않은 패스워드 또는 이메일입니다!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

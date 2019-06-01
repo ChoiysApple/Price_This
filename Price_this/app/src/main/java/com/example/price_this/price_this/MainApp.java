@@ -117,29 +117,6 @@ public class MainApp extends AppCompatActivity
 
             }
         });
-
-
-/*
-        mReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                final ArrayList<GoodsInfo> GoodsInfoArrayList = new ArrayList<>();
-                for (DataSnapshot messageData : dataSnapshot.getChildren()) {
-                    Log.i("으아악", messageData.toString());
-                    // child 내에 있는 데이터만큼 반복합니다.
-                   FirebaseLoad msg = messageData.getValue(FirebaseLoad.class);
-                   GoodsInfoArrayList.add(0, new GoodsInfo(msg.img, msg.price, msg.price, "A", msg.name, msg.tags));
-                   MyAdapter myAdapter = new MyAdapter(GoodsInfoArrayList);
-
-                   mRecyclerView.setAdapter(myAdapter);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });*/
     }
 
     public static class FirebaseLoad {
@@ -172,37 +149,6 @@ public class MainApp extends AppCompatActivity
             return result;
         }
     }
-
-    /*    private void initDatabase(){
-            mChild = new ChildEventListener() {
-                @Override
-                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                }
-
-                @Override
-                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                }
-
-                @Override
-                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-                }
-
-                @Override
-                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            };
-            mReference.addChildEventListener(mChild);
-        }
-    */
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawerLayout);
@@ -242,8 +188,14 @@ public class MainApp extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.account) {
+            Intent intent = new Intent(getApplicationContext(), MyPage.class);
+            startActivity(intent);
         } else if (id == R.id.rgst) {
+            Intent intent = new Intent(getApplicationContext(), MyPage.class);
+            startActivity(intent);
         } else if (id == R.id.command) {
+            Intent intent = new Intent(getApplicationContext(), MyPage.class);
+            startActivity(intent);
         } else if (id == R.id.bug_report) {
         } else if (id == R.id.setting) {
         } else if (id == R.id.logout) {
