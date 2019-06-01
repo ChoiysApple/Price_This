@@ -112,7 +112,8 @@ public class Product extends AppCompatActivity {
                         @Override
                         public void onSuccess(byte[] bytes) {
                             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                            imgView_productImg.setImageBitmap(bitmap);
+                            Bitmap result = Bitmap.createScaledBitmap(bitmap, 1000, 1000, false);
+                            imgView_productImg.setImageBitmap(result);
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override

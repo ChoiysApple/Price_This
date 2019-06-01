@@ -15,10 +15,13 @@
             android:id="@+id/txtView_productName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="13dp"
-            android:layout_margin="5dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:textSize="20dp"
-            android:hint="@string/productToRegister" />
+            />
         <View
             android:layout_width="match_parent"
             android:layout_height="3dp"
@@ -48,18 +51,19 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_margin="10dp"
                     android:text="@string/goodsTag"
                     android:textColor="#a1d8e4"
                     android:textSize="20dp" />
 
                 <TextView
                     android:id="@+id/txtView_goodsTag"
-                    android:layout_width="210dp"
+                    android:layout_width="230dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:textColor="#a1d8e4"
-                    android:textSize="20dp" />
+                    android:textSize="20dp"
+                    android:gravity="left"/>
             </TableRow>
             <TextView
                 android:id="@+id/txtVIew_desc"
@@ -68,7 +72,8 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:text="@string/description"
-                android:textSize="20dp"/>
+                android:textSize="20dp"
+                android:gravity="left"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -76,7 +81,8 @@
                 android:layout_marginLeft="10dp"
                 android:text="@string/spec"
                 android:textStyle="bold"
-                android:textSize="20dp"/>
+                android:textSize="20dp"
+                android:gravity="left"/>
             <TableRow>
                 <TextView
                     android:id="@+id/txtView_spec"
@@ -84,7 +90,8 @@
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
                     android:textSize="20dp"
-                    android:text="@string/NULL"/>
+                    android:text="@string/NULL"
+                    android:gravity="left"/>
             </TableRow>
             <View
                 android:layout_width="match_parent"
@@ -99,7 +106,8 @@
                     android:layout_margin="10dp"
                     android:text="@string/averagePrice"
                     android:textColor="#a1d8e4"
-                    android:textSize="20dp" />
+                    android:textSize="20dp"
+                    android:gravity="left"/>
 
                 <TextView
                     android:id="@+id/txtView_avgPrice"
@@ -108,7 +116,8 @@
                     android:layout_margin="10dp"
                     android:text="@string/averagePrice"
                     android:textColor="#a1d8e4"
-                    android:textSize="20dp" />
+                    android:textSize="20dp"
+                    android:gravity="left"/>
             </TableRow>
             <TableRow>
 
@@ -118,7 +127,8 @@
                     android:layout_marginLeft="10dp"
                     android:text="@string/registeredPrice"
                     android:textColor="#a1d8e4"
-                    android:textSize="20dp" />
+                    android:textSize="20dp"
+                    android:gravity="left"/>
                 <TextView
                     android:id="@+id/txtView_regPrice"
                     android:layout_width="0dp"
@@ -126,19 +136,22 @@
                     android:layout_marginLeft="10dp"
                     android:textColor="#a1d8e4"
                     android:textSize="20dp"
-                    android:text="@string/registeredPrice"/>
+                    android:text="@string/registeredPrice"
+                    android:gravity="left"/>
             </TableRow>
             <TextView
                 android:id="@+id/txtView_userPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:textSize="20dp"/>
+                android:textSize="20dp"
+                android:gravity="left"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
-                android:background="#a1d8e4" />
+                android:background="#a1d8e4"
+                android:gravity="left"/>
 
             <TableRow
                 android:layout_height="wrap_content">

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Price_this</string>
     <string name="productToRegister">등록할 상품 이름</string>
-    <string name="registerPicture">상품 사진 올리기</string>
+    <string name="registerPicture">상품 사진 선택</string>
     <string name="tag">#fruit#organic</string>
     <string name="add">추가</string>
     <string name="registerPrice">등록가: </string>
@@ -28,7 +28,8 @@
     <string name="sign_in_guide">또 뵙네요! 로그인하기</string>
     <string name="password_condition">*비밀번호는 6 자 이상입니다</string>
     <string name="email_condition">*이미 등록된 이메일입니다ㅣ</string>
-
+    <string name="first_sign_in">\"이거 얼마\"에 처음 오셨나요?</string>
+    <string name="login">또 뵙네요! 안녕하세요!</string>
 
 
 

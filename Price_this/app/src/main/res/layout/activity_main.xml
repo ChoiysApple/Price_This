@@ -9,9 +9,9 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="56dp"
-        android:paddingLeft="24dp"
-        android:paddingRight="24dp">
+        android:paddingTop="30dp"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp">
 
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -24,29 +24,34 @@
                 android:layout_width="wrap_content"
                 android:layout_height="100dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="24dp"
                 android:src="@drawable/coin_rabbit" />
 
             <ImageView
-                android:layout_width="100dp"
+                android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/coin_rabbit_logo"
                 android:layout_centerHorizontal="true"
                 android:scaleType="fitCenter"
                 android:src="@drawable/price_this" />
         </RelativeLayout>
+        <TextView
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/first_sign_in"
+            android:textSize="10sp"/>
         <!-- Email Label -->
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="8dp">
-
             <EditText android:id="@+id/field_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                android:hint="Name" />
+                android:hint="Name"
+                android:textSize="15sp"/>
         </android.support.design.widget.TextInputLayout>
         <!-- Email Label -->
         <android.support.design.widget.TextInputLayout
@@ -59,7 +64,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:hint="Email" />
+                android:hint="Email"
+                android:textSize="15sp"/>
         </android.support.design.widget.TextInputLayout>
 
         <!-- Password Label -->
@@ -67,44 +73,41 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
+            android:layout_marginBottom="4dp">
 
             <EditText android:id="@+id/field_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:hint="Password"/>
+                android:hint="Password"
+                android:textSize="15sp"/>
 
         </android.support.design.widget.TextInputLayout>
-
-
-
-
             <TextView android:id="@+id/account_guide"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text = "@string/password_condition" />
+                android:text = "@string/password_condition"
+                android:textSize="10sp"/>
 
-
-
-
-
-
-        <android.support.v7.widget.AppCompatButton
+        <ImageButton
             android:id="@+id/btn_signup"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:padding="12dp"
-            android:text="@string/sign_up"/>
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/bttn_sign"
+            android:scaleType="fitXY"
+            android:background="@android:color/transparent"
+            />
 
-        <android.support.v7.widget.AppCompatButton
+        <ImageButton
             android:id="@+id/btn_gotoSignin"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:padding="12dp"
-            android:text="@string/sign_in_guide"/>
+            android:layout_height="60dp"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/bttn_login"
+            android:scaleType="fitXY"
+            android:background="@android:color/transparent"
+            android:layout_marginBottom="40dp"/>
 
     </LinearLayout>
 </ScrollView>

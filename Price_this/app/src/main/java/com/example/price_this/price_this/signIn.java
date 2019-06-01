@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,7 +21,7 @@ public class signIn extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private EditText mEmailField;
     private EditText mPasswordField;
-    private Button sign_in;
+    private ImageButton sign_in;
 
 
     @Override
@@ -34,7 +35,7 @@ public class signIn extends AppCompatActivity {
         mPasswordField = findViewById(R.id.field_password);
 
 
-        sign_in = (Button) findViewById(R.id.btn_signin);
+        sign_in = (ImageButton) findViewById(R.id.btn_signin);
         sign_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

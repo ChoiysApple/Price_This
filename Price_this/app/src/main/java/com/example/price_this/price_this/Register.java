@@ -169,10 +169,12 @@ public class Register extends AppCompatActivity {
             Bitmap bitmap = null;
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                Bitmap result = Bitmap.createScaledBitmap(bitmap, 600, 600, false);
+                imgBtn_productImg.setImageBitmap(result);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            imgBtn_productImg.setImageBitmap(bitmap);
+
         }
     }
 

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText mEmailField;
     private EditText mPasswordField;
     private EditText mUsernameField;
-    private Button sign_up;
-    private Button goto_sign_in;
+    private ImageButton sign_up;
+    private ImageButton goto_sign_in;
     private TextView account_guide;
     private static final String TAG = "EmailPassword";
 
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         mUsernameField = findViewById(R.id.field_username);
         account_guide = findViewById(R.id.account_guide);
 
-        sign_up = (Button) findViewById(R.id.btn_signup);
+        sign_up = (ImageButton) findViewById(R.id.btn_signup);
         sign_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        goto_sign_in = (Button) findViewById(R.id.btn_gotoSignin);
+        goto_sign_in = (ImageButton) findViewById(R.id.btn_gotoSignin);
         goto_sign_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
