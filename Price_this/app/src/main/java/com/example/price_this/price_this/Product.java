@@ -11,8 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -33,11 +35,15 @@ import java.util.Map;
 public class Product extends AppCompatActivity {
     TextView txtView_productName;
     TextView txtView_avgPrice, txtView_regPrice, txtView_userPrice;
-    TextView txtView_priceToRegister;
+    EditText editTxt_priceToRegister;
     TextView txtView_goodsTag;
     TextView txtView_spec, txtView_desc;
     ImageView imgView_productImg;
     Button btn_register;
+
+    String id;
+
+
 
     private FirebaseDatabase mDatabase;
     private DatabaseReference mReference;
@@ -56,7 +62,7 @@ public class Product extends AppCompatActivity {
         txtView_avgPrice = findViewById(R.id.txtView_avgPrice);
         txtView_regPrice = findViewById(R.id.txtView_regPrice);
         txtView_userPrice = findViewById(R.id.txtView_userPrice);
-        txtView_priceToRegister = findViewById(R.id.txtView_priceToRegister);
+        editTxt_priceToRegister = findViewById(R.id.editTxt_priceToRegister);
         txtView_goodsTag = findViewById(R.id.txtView_goodsTag);
         txtView_spec = findViewById(R.id.txtView_spec);
         txtView_desc = findViewById(R.id.txtVIew_desc);
@@ -64,12 +70,11 @@ public class Product extends AppCompatActivity {
         imgView_productImg = findViewById(R.id.imgView_productImg);
         btn_register = findViewById(R.id.btn_register);
 
-        Intent intent = getIntent();
-        String id = intent.getStringExtra("id");
 
+        Intent intent = getIntent();
+        id = intent.getStringExtra("id");
 
         mReference = FirebaseDatabase.getInstance().getReference().child("test").child(id);
-        Query search = mReference.child("test").orderByChild("id").equalTo(id);
         mReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -79,6 +84,7 @@ public class Product extends AppCompatActivity {
                     txtView_regPrice.setText(data.price);
                     txtView_desc.setText(data.description);
                     txtView_spec.setText(data.spec);
+
                     //태그띄우기
                     ArrayList<String> tags = data.tags;
                     if(tags!=null){
@@ -87,6 +93,15 @@ public class Product extends AppCompatActivity {
                             if (i != tags.size()-1){
                                 txtView_goodsTag.append(", ");
                             }
+                        }
+                    }
+
+                    ArrayList<String> userPrice = data.userPrice;
+                    if(userPrice!=null){
+                        for(int i=1; i<userPrice.size();i++) {
+                            if(userPrice.get(i) == null)
+                                continue;
+                            txtView_userPrice.append("user: " + userPrice.get(i) + "\n");
                         }
                     }
                     FirebaseStorage storage = FirebaseStorage.getInstance("gs://price-this.appspot.com/");
@@ -112,18 +127,38 @@ public class Product extends AppCompatActivity {
 
             }
         });
-
-
-
-
-
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+
+
+                mReference = FirebaseDatabase.getInstance().getReference().child("test").child(id);
+                mReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            String user = editTxt_priceToRegister.getText().toString();
+                            FirebaseLoad data = dataSnapshot.getValue(FirebaseLoad.class);
+                            System.out.println("ddddddddd" + user);
+                            //ArrayList<String> userPrice = data.userPrice;
+                            data.userPrice.add(user);
+                            mReference.child("userPrice").setValue(data.userPrice);
+                            txtView_userPrice.append("user: " + user +"\n");
+                            Toast.makeText(getApplicationContext(), "가격 추천 완료", Toast.LENGTH_LONG);
+
+
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+                //finish();
             }
         });
     }
+
     public static class FirebaseLoad {
         public String id;
         public String name;
@@ -132,11 +167,12 @@ public class Product extends AppCompatActivity {
         public ArrayList<String> tags;
         public String spec;
         public String price;
+        public ArrayList<String> userPrice;
 
         public FirebaseLoad() {
 
         }
-        public FirebaseLoad(String id, String name, String img, String desc, ArrayList tags, String spec, String price){
+        public FirebaseLoad(String id, String name, String img, String desc, ArrayList tags, String spec, String price, ArrayList userPrice){
             this.id = id;
             this.name = name;
             this.img = img;
@@ -144,6 +180,7 @@ public class Product extends AppCompatActivity {
             this.tags = tags;
             this.spec = spec;
             this.price = price;
+            this.userPrice = userPrice;
         }
     }
 }

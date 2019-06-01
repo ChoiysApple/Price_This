@@ -32,6 +32,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -112,7 +113,9 @@ public class Register extends AppCompatActivity {
                     for(int i=0; i<tagss.length; i++){
                         tags.add(tagss[i]);
                     }
-                    FirebasePost post = new FirebasePost(id, productName, img, description, tags, spec, price);
+                    ArrayList<String> userPrice = new ArrayList<>();
+                    userPrice.add("");
+                    FirebasePost post = new FirebasePost(id, productName, img, description, tags, spec, price, userPrice);
                     String key = databaseReference.child("test").push().getKey();
                     post.id= key;
                     databaseReference.child("test").child(key).setValue(post.toMap());
@@ -131,8 +134,9 @@ public class Register extends AppCompatActivity {
         public ArrayList tags;
         public String spec;
         public String price;
+        public ArrayList userPrice;
         public FirebasePost(){}
-        public FirebasePost(String id, String name, String img, String desc, ArrayList tags, String spec, String price){
+        public FirebasePost(String id, String name, String img, String desc, ArrayList tags, String spec, String price, ArrayList userPrice){
             this.id = id;
             this.name = name;
             this.img = img;
@@ -140,6 +144,7 @@ public class Register extends AppCompatActivity {
             this.tags = tags;
             this.spec = spec;
             this.price = price;
+            this.userPrice = userPrice;
         }
         public Map<String, Object> toMap() {
             HashMap<String, Object> result = new HashMap<>();
@@ -150,6 +155,7 @@ public class Register extends AppCompatActivity {
             result.put("description", desc);
             result.put("spec", spec);
             result.put("tags", tags);
+            result.put("userPrice", userPrice);
             return result;
         }
     }

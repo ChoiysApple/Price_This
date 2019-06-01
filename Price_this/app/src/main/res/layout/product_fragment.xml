@@ -133,8 +133,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:textSize="20dp"
-                android:text="user: "/>
+                android:textSize="20dp"/>
 
             <View
                 android:layout_width="match_parent"
@@ -145,7 +144,7 @@
                 android:layout_height="wrap_content">
                 <!-- 원래 textView였는데 테스팅하기 쉽게 잠시 EditText로 수정했습니다! -->
                 <EditText
-                    android:id="@+id/txtView_priceToRegister"
+                    android:id="@+id/editTxt_priceToRegister"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
                     android:layout_marginLeft="7dp"
