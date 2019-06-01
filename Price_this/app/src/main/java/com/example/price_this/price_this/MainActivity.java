@@ -1,6 +1,8 @@
 package com.example.price_this.price_this;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -33,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton goto_sign_in;
     private TextView account_guide;
     private static final String TAG = "EmailPassword";
+    static final String PREF_USER_ACCOUNT = "account";
+    SharedPreferences auto;
+    SharedPreferences.Editor toEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,13 +97,26 @@ public class MainActivity extends AppCompatActivity {
 
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(MainActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
-
                         }
 
                         // [END_EXCLUDE]
                     }
                 });
     }
+
+    private void autoSignin() {
+        auto = getSharedPreferences(PREF_USER_ACCOUNT, Activity.MODE_PRIVATE);
+        toEdit = auto.edit();
+        auto = getSharedPreferences(PREF_USER_ACCOUNT, MODE_PRIVATE);
+        if (auto != null && auto.contains("saved_email")&& auto.contains("saved_password")) {
+            String email = auto.getString("saved_email", "noname");
+            String password = auto.getString("saved_password", "noname");
+            Intent intent=new Intent(MainActivity.this,signIn.class);
+            startActivity(intent);
+        }
+
+    }
+
 
 
 
