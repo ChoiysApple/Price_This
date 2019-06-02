@@ -92,7 +92,7 @@
         <ImageButton
             android:id="@+id/btn_signup"
             android:layout_width="wrap_content"
-            android:layout_height="60dp"
+            android:layout_height="48dp"
             android:layout_marginTop="40dp"
             android:src="@drawable/bttn_sign"
             android:scaleType="fitXY"
@@ -102,8 +102,8 @@
         <ImageButton
             android:id="@+id/btn_gotoSignin"
             android:layout_width="fill_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="15dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"
             android:src="@drawable/bttn_login"
             android:scaleType="fitXY"
             android:background="@android:color/transparent"
