@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,20 +19,16 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 public class Product extends AppCompatActivity {
     TextView txtView_productName;
@@ -108,7 +103,9 @@ public class Product extends AppCompatActivity {
                     //태그띄우기
                     ArrayList<String> tags = data.tags;
                     if(tags!=null){
-                        for(int i=1; i<tags.size();i++) {
+                        for(int i=0; i<tags.size();i++) {
+                            if(tags.get(i).equals(""))
+                                continue;
                             txtView_goodsTag.append(tags.get(i));
                             if (i != tags.size()-1){
                                 txtView_goodsTag.append(", ");

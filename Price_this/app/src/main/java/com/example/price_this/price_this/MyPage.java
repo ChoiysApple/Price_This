@@ -1,5 +1,6 @@
 package com.example.price_this.price_this;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,6 +9,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,11 +30,15 @@ public class MyPage extends AppCompatActivity {
     RecyclerView mRecyclerView;
     RecyclerView mRecyclerView2;
     RecyclerView.LayoutManager mLayoutManager;
+
+    TextView txtView_email;
+    TextView txtView_name;
+
     private FirebaseDatabase mDatabase;
     private DatabaseReference mReference;
 
-    FirebaseUser userInfo = FirebaseAuth.getInstance().getCurrentUser();
-    String userUid = userInfo.getUid();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    String userUid = user.getUid();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +49,29 @@ public class MyPage extends AppCompatActivity {
             System.out.println(e.getMessage());
         }
         setContentView(R.layout.mypage);
+
+        String name = "";
+        String email = "";
+        Uri photoUrl;
+
+        if (user != null) {
+            // Name, email address, and profile photo Url
+            name = user.getDisplayName();
+            email = user.getEmail();
+            photoUrl = user.getPhotoUrl();
+
+            // Check if user's email is verified
+            boolean emailVerified = user.isEmailVerified();
+
+            // The user's ID, unique to the Firebase project. Do NOT use this value to
+            // authenticate with your backend server, if you have one. Use
+            // FirebaseUser.getIdToken() instead.
+        }
+
+        txtView_email = findViewById(R.id.txtView_email);
+        txtView_name = findViewById(R.id.txtView_name);
+        txtView_email.setText(email);
+        txtView_name.setText(name);
 
         //리사이클러뷰 설정
         mRecyclerView = findViewById(R.id.mypage_question);
@@ -57,7 +86,6 @@ public class MyPage extends AppCompatActivity {
 
         final ArrayList<GoodsInfo> GoodsInfoArrayListQ = new ArrayList<>();
         final ArrayList<GoodsInfo> GoodsInfoArrayListA = new ArrayList<>();
-
 
         mReference = FirebaseDatabase.getInstance().getReference().child("test");
         Query searchQ = mReference.orderByChild("userId").equalTo(userUid);
