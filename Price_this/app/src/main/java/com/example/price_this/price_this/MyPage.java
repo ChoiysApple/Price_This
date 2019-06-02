@@ -6,17 +6,30 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MyPage extends AppCompatActivity {
     RecyclerView mRecyclerView;
     RecyclerView mRecyclerView2;
     RecyclerView.LayoutManager mLayoutManager;
-    DatabaseReference goodsDatabase;
+    private FirebaseDatabase mDatabase;
+    private DatabaseReference mReference;
+
+    FirebaseUser userInfo = FirebaseAuth.getInstance().getCurrentUser();
+    String userUid = userInfo.getUid();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,24 +53,55 @@ public class MyPage extends AppCompatActivity {
         mRecyclerView2.setLayoutManager(mLayoutManager);
 
 
-        goodsDatabase = FirebaseDatabase.getInstance().getReference().child("이름");
-        ArrayList<String> tags = new ArrayList<>();
-        tags.add("딸기");
-        tags.add("음식");
-        ArrayList<GoodsInfo> GoodsInfoArrayList = new ArrayList<>();/*
-        GoodsInfoArrayList.add(new GoodsInfo(R.drawable.berry,"5,000원", "6,000원", "A", "딸기", tags));
-        GoodsInfoArrayList.add(new GoodsInfo(R.drawable.bread, "4,600원","6,000원", "A",  "빵", tags));
-        GoodsInfoArrayList.add(new GoodsInfo(R.drawable.noodle, "4,000원","8,000원", "B",  "국수먹고싶다", tags));
-        GoodsInfoArrayList.add(new GoodsInfo(R.drawable.berry,"115,000원", "116,000원", "S", "금딸기", tags));
-        GoodsInfoArrayList.add(new GoodsInfo(R.drawable.bread, "1,234,114,600원", "2,136,500원", "S", "빵", tags));
-        GoodsInfoArrayList.add(new GoodsInfo(R.drawable.noodle, "4,000원","6,000원", "C",  "요즘누가짜장면을사천원에팔아", tags));*/
+        mReference = FirebaseDatabase.getInstance().getReference().child("test");
+        Query search = mReference.orderByChild("userId").equalTo(userUid);
+        search.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    String data = dataSnapshot.getValue().toString();
+                    String[] temp = data.split("\\{");
+                    System.out.println("tempppp" + temp[1]);
+                    String[] temp2 = data.split(", ");
 
 
-        MyPageQuestion myPageQuestion = new MyPageQuestion(GoodsInfoArrayList);
-        MyPageAnswer myPageAnswer = new MyPageAnswer(GoodsInfoArrayList);
+                    ArrayList<GoodsInfo> GoodsInfoArrayList = new ArrayList<>();
+                    GoodsInfoArrayList.add(new GoodsInfo(temp2[5].substring(temp2[5].indexOf("=")+1), temp2[3].substring(temp2[3].indexOf("=")+1),  temp2[1].substring(temp2[1].indexOf("=")+1)));
 
-        mRecyclerView.setAdapter(myPageQuestion);
-        mRecyclerView2.setAdapter(myPageAnswer);
+                    MyPageQuestion myPageQuestion = new MyPageQuestion(GoodsInfoArrayList);
+                    //MyPageAnswer myPageAnswer = new MyPageAnswer(GoodsInfoArrayList);
 
+                    mRecyclerView.setAdapter(myPageQuestion);
+                    //mRecyclerView2.setAdapter(myPageAnswer);
+
+
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    public static class FirebaseLoad {
+        public String id;
+        public String name;
+        public String img;
+        public String desc;
+        public ArrayList<String> tags;
+        public String spec;
+        public String price;
+        public FirebaseLoad(){}
+        public FirebaseLoad(String id, String name, String img, String desc, ArrayList<String> tags, String spec, String price){
+            this.id = id;
+            this.name = name;
+            this.img = img;
+            this.desc = desc;
+            this.tags = tags;
+            this.spec = spec;
+            this.price = price;
+        }
     }
 }

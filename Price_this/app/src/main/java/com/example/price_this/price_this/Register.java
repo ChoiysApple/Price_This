@@ -23,6 +23,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -50,6 +52,9 @@ public class Register extends AppCompatActivity {
     private Uri filePath;
     StorageReference pathReference;
     String pathImg;
+
+    FirebaseUser userInfo = FirebaseAuth.getInstance().getCurrentUser();
+    String userUid = userInfo.getUid();
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -115,7 +120,7 @@ public class Register extends AppCompatActivity {
                     }
                     ArrayList<String> userPrice = new ArrayList<>();
                     userPrice.add("");
-                    FirebasePost post = new FirebasePost(id, productName, img, description, tags, spec, price, userPrice);
+                    FirebasePost post = new FirebasePost(id, productName, img, description, tags, spec, price, userPrice, userUid);
                     String key = databaseReference.child("test").push().getKey();
                     post.id= key;
                     databaseReference.child("test").child(key).setValue(post.toMap());
@@ -135,8 +140,9 @@ public class Register extends AppCompatActivity {
         public String spec;
         public String price;
         public ArrayList userPrice;
+        public String userId;
         public FirebasePost(){}
-        public FirebasePost(String id, String name, String img, String desc, ArrayList tags, String spec, String price, ArrayList userPrice){
+        public FirebasePost(String id, String name, String img, String desc, ArrayList tags, String spec, String price, ArrayList userPrice, String userId){
             this.id = id;
             this.name = name;
             this.img = img;
@@ -145,6 +151,7 @@ public class Register extends AppCompatActivity {
             this.spec = spec;
             this.price = price;
             this.userPrice = userPrice;
+            this.userId = userId;
         }
         public Map<String, Object> toMap() {
             HashMap<String, Object> result = new HashMap<>();
@@ -156,9 +163,12 @@ public class Register extends AppCompatActivity {
             result.put("spec", spec);
             result.put("tags", tags);
             result.put("userPrice", userPrice);
+            result.put("userId", userId);
             return result;
         }
     }
+
+
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
