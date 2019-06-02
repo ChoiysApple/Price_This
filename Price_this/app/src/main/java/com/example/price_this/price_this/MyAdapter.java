@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -22,6 +21,8 @@ import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
+    LayoutInflater inflater;
+
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView imgViewPicture;
         TextView txtViewPrice;
@@ -91,6 +92,15 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public int getItemCount() {
         return goodsInfoArrayList.size();
+    }
+
+    public GoodsInfo getItem(int position) {
+        return goodsInfoArrayList.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
 
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="single">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group>
         <item
             android:id="@+id/account"
             android:icon="@drawable/rabbit"
@@ -17,7 +18,7 @@
             android:title="댓글 단 상품"
             />
     </group>
-    <group android:checkableBehavior="single">
+    <group>
         <item
             android:id="@+id/bug_report"
             android:icon="@drawable/rabbit"
