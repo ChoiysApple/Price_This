@@ -9,19 +9,22 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class MyPageAnswer extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView txtViewGoodsName;
         TextView txtViewGoodsDate;
+        TextView txtViewGoodsPrice;
         TextView txtViewGoodsTag;
 
         MyViewHolder(View view){
             super(view);
             txtViewGoodsName = view.findViewById(R.id.txtView_productName);
             txtViewGoodsName.setMaxLines(1);
-            txtViewGoodsDate = view.findViewById(R.id.txtView_date);
+            txtViewGoodsPrice = view.findViewById(R.id.txtView_date);
             txtViewGoodsTag = view.findViewById(R.id.txtView_goodsTag);
         }
     }
@@ -45,7 +48,7 @@ public class MyPageAnswer extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         final MyPageAnswer.MyViewHolder myViewHolder = (MyPageAnswer.MyViewHolder) holder;
 
         myViewHolder.txtViewGoodsName.setText(goodsInfoArrayList.get(position).goodsName);
-
+        myViewHolder.txtViewGoodsPrice.setText(goodsInfoArrayList.get(position).crrtgoodsPrice);
 
         myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,10 +56,7 @@ public class MyPageAnswer extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 final Intent intent;
                 Context context = v.getContext();
                 intent = new Intent(context, Product.class);
-                intent.putExtra("name", goodsInfoArrayList.get(position).goodsName);
-                intent.putExtra("image", goodsInfoArrayList.get(position).goodsPicture);
-                intent.putExtra("price", goodsInfoArrayList.get(position).crrtgoodsPrice);
-                intent.putExtra("Tags", goodsInfoArrayList.get(position).goodsTag);
+                intent.putExtra("id", goodsInfoArrayList.get(position).id);
                 context.startActivity(intent);
                 Toast.makeText(context, "이거는 "+goodsInfoArrayList.get(position).goodsName+ "이야 으아악 누르지마", Toast.LENGTH_SHORT).show();
             }
