@@ -65,7 +65,6 @@ public class MainApp extends AppCompatActivity
     private boolean isUserHeader = false;
 
     final ArrayList<GoodsInfo> GoodsInfoArrayList = new ArrayList<>();
-    final ArrayList<GoodsInfo> GoodsInfoArrayList_get = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,7 +119,7 @@ public class MainApp extends AppCompatActivity
 
         //final ArrayList<GoodsInfo> GoodsInfoArrayList = new ArrayList<>();
         //final ArrayList<GoodsInfo> GoodsInfoArrayList = new ArrayList<>();
-        //final ArrayList<GoodsInfo> GoodsInfoArrayList_get = new ArrayList<>();
+        final ArrayList<GoodsInfo> GoodsInfoArrayList_get = new ArrayList<>();
         oldPostKey = new ArrayList<>();
 
         loadData();
@@ -185,6 +184,7 @@ public class MainApp extends AppCompatActivity
     public void loadData() {
         ArrayList<String> tags = new ArrayList<>();
         //final ArrayList<GoodsInfo> GoodsInfoArrayList = new ArrayList<>();
+        final ArrayList<GoodsInfo> GoodsInfoArrayList_get = new ArrayList<>();
         oldPostKey = new ArrayList<>();
 
         mReference = FirebaseDatabase.getInstance().getReference("test"); // 변경값을 확인할 child 이름
