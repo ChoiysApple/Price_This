@@ -64,6 +64,9 @@ public class MainApp extends AppCompatActivity
     private ChildEventListener mChild;
     private boolean isUserHeader = false;
 
+    final ArrayList<GoodsInfo> GoodsInfoArrayList = new ArrayList<>();
+    final ArrayList<GoodsInfo> GoodsInfoArrayList_get = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,15 +96,6 @@ public class MainApp extends AppCompatActivity
 
         mSwipeContainer = findViewById(R.id.swipe_layout);
 
-        mSwipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                loadData();
-
-                mSwipeContainer.setRefreshing(false);
-            }
-        });
-
         btn_floating = findViewById(R.id.btn_floating);
         btn_floating.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,10 +118,9 @@ public class MainApp extends AppCompatActivity
         //DB load
         goodsDatabase = FirebaseDatabase.getInstance().getReference();
 
-        ArrayList<String> tags = new ArrayList<>();
         //final ArrayList<GoodsInfo> GoodsInfoArrayList = new ArrayList<>();
-        final ArrayList<GoodsInfo> GoodsInfoArrayList = new ArrayList<>();
-        final ArrayList<GoodsInfo> GoodsInfoArrayList_get = new ArrayList<>();
+        //final ArrayList<GoodsInfo> GoodsInfoArrayList = new ArrayList<>();
+        //final ArrayList<GoodsInfo> GoodsInfoArrayList_get = new ArrayList<>();
         oldPostKey = new ArrayList<>();
 
         loadData();
@@ -137,6 +130,15 @@ public class MainApp extends AppCompatActivity
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 //마지막 체크
+                if(!mRecyclerView.canScrollVertically(-1)){
+                    mSwipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                        @Override
+                        public void onRefresh() {
+                            loadData();
+                            mSwipeContainer.setRefreshing(false);
+                        }
+                    });
+                }
                 if(!mRecyclerView.canScrollVertically(1)){
                     if(GoodsInfoArrayList_get.size()==10){
                         Toast.makeText(getApplicationContext(), "잠시만 기다려주세요~", Toast.LENGTH_SHORT).show();
@@ -146,7 +148,6 @@ public class MainApp extends AppCompatActivity
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             GoodsInfoArrayList_get.clear(); //임시저장 위치
                             oldPostKey.clear();
-
                             for (DataSnapshot messageData : dataSnapshot.getChildren()) {
                                 FirebaseLoad msg = messageData.getValue(FirebaseLoad.class);
                                 GoodsInfoArrayList_get.add(0, new GoodsInfo(msg.avgPrice, msg.id, msg.name, msg.img, msg.price));
@@ -184,8 +185,6 @@ public class MainApp extends AppCompatActivity
     public void loadData() {
         ArrayList<String> tags = new ArrayList<>();
         //final ArrayList<GoodsInfo> GoodsInfoArrayList = new ArrayList<>();
-        final ArrayList<GoodsInfo> GoodsInfoArrayList = new ArrayList<>();
-        final ArrayList<GoodsInfo> GoodsInfoArrayList_get = new ArrayList<>();
         oldPostKey = new ArrayList<>();
 
         mReference = FirebaseDatabase.getInstance().getReference("test"); // 변경값을 확인할 child 이름
