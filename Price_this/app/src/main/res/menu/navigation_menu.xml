@@ -7,16 +7,6 @@
             android:icon="@drawable/rabbit"
             android:title="계정"
             />
-        <item
-            android:id="@+id/rgst"
-            android:icon="@drawable/rabbit"
-            android:title="등록한 상품"
-            />
-        <item
-            android:id="@+id/command"
-            android:icon="@drawable/rabbit"
-            android:title="댓글 단 상품"
-            />
     </group>
     <group>
         <item
