@@ -3,12 +3,14 @@ package com.example.price_this.price_this;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -20,6 +22,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.common.internal.safeparcel.SafeParcelable;
 import com.google.firebase.auth.FirebaseAuth;
@@ -43,6 +46,10 @@ public class MainApp extends AppCompatActivity
     DatabaseReference goodsDatabase;
     FloatingActionButton btn_floating;
     Toolbar naviBar;
+    ArrayList<String> oldPostKey;
+    String oldPostID;
+    MyAdapter myAdapter;
+
     private FirebaseAuth mAuth;
     SharedPreferences auto;
     SharedPreferences.Editor toEdit;
@@ -88,6 +95,87 @@ public class MainApp extends AppCompatActivity
             }
         });
 
+
+        //DB load
+        goodsDatabase = FirebaseDatabase.getInstance().getReference();
+
+        ArrayList<String> tags = new ArrayList<>();
+        //final ArrayList<GoodsInfo> GoodsInfoArrayList = new ArrayList<>();
+        final ArrayList<GoodsInfo> GoodsInfoArrayList = new ArrayList<>();
+        final ArrayList<GoodsInfo> GoodsInfoArrayList_get = new ArrayList<>();
+        oldPostKey = new ArrayList<>();
+
+        mReference = FirebaseDatabase.getInstance().getReference("test"); // 변경값을 확인할 child 이름
+
+        mReference.limitToLast(10).addListenerForSingleValueEvent(new ValueEventListener(){
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot messageData : dataSnapshot.getChildren()) {
+                    FirebaseLoad msg = messageData.getValue(FirebaseLoad.class);
+                    GoodsInfoArrayList.add(0, new GoodsInfo(msg.id, msg.name, msg.img, msg.price));
+                    GoodsInfoArrayList_get.add(0, new GoodsInfo(msg.id, msg.name, msg.img, msg.price));
+                    Log.i("디비테스트",messageData.getKey());
+                    oldPostKey.add(messageData.getKey());
+                    //Collections.reverse(GoodsInfoArrayList);
+                }
+                oldPostID = oldPostKey.get(0);
+                myAdapter = new MyAdapter(GoodsInfoArrayList);
+                mRecyclerView.setAdapter(myAdapter);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(getApplicationContext(), "게시글 불러오기를 실패했어요!",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                //마지막 체크
+                if(!mRecyclerView.canScrollVertically(1)){
+                    if(GoodsInfoArrayList_get.size()==10){
+                        Toast.makeText(getApplicationContext(), "잠시만 기다려주세요~", Toast.LENGTH_SHORT).show();
+                    }
+                    mReference.orderByKey().endAt(oldPostID).limitToLast(10).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            GoodsInfoArrayList_get.clear(); //임시저장 위치
+                            oldPostKey.clear();
+
+                            for (DataSnapshot messageData : dataSnapshot.getChildren()) {
+                                FirebaseLoad msg = messageData.getValue(FirebaseLoad.class);
+                                GoodsInfoArrayList_get.add(0, new GoodsInfo(msg.id, msg.name, msg.img, msg.price));
+                                oldPostKey.add(messageData.getKey());
+                            }
+                            //불러오는 중인지, 전부 불러왔는지 if문
+                            if( GoodsInfoArrayList_get.size() > 1) {//1개라도 있으면 불러옴
+                                //마지막 중복되는 부분 삭제
+                                GoodsInfoArrayList_get.remove(0);
+                                //contents 뒤에 추가
+                                GoodsInfoArrayList.addAll( GoodsInfoArrayList_get);
+                                oldPostID = oldPostKey.get(0);
+                                //메시지 갱신 위치
+                                myAdapter.notifyDataSetChanged();
+                            } else {
+                                Snackbar.make(getWindow().getDecorView().getRootView(), "모든 상품을 다 살펴보았어요!", Snackbar.LENGTH_SHORT)
+                                        .setAction("닫기", new View.OnClickListener() {@Override public void onClick(View view) {}}).show();
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                        }
+                    });
+                }
+            }
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        });
+
+        /*주석주석주석
         goodsDatabase = FirebaseDatabase.getInstance().getReference();
 
         ArrayList<String> tags = new ArrayList<>();
@@ -95,6 +183,8 @@ public class MainApp extends AppCompatActivity
         final ArrayList<GoodsInfo> GoodsInfoArrayList = new ArrayList<>();
 
         mReference = FirebaseDatabase.getInstance().getReference("test"); // 변경값을 확인할 child 이름
+
+
         mReference.addChildEventListener(new ChildEventListener(){
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -124,7 +214,7 @@ public class MainApp extends AppCompatActivity
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });
+        });*/
     }
 
     public static class FirebaseLoad {
@@ -205,6 +295,8 @@ public class MainApp extends AppCompatActivity
             Intent intent = new Intent(getApplicationContext(), MyPage.class);
             startActivity(intent);
         } else if (id == R.id.bug_report) {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://forms.gle/jCL2tFMUjyY2feth6"));
+            startActivity(intent);
         } else if (id == R.id.setting) {
         } else if (id == R.id.logout) {
             auto = getSharedPreferences(PREF_USER_ACCOUNT, Activity.MODE_PRIVATE);
