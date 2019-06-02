@@ -118,8 +118,8 @@ public class Register extends AppCompatActivity {
                     for(int i=0; i<tagss.length; i++){
                         tags.add(tagss[i]);
                     }
-                    ArrayList<String> userPrice = new ArrayList<>();
-                    userPrice.add("");
+                    HashMap<String, String> userPrice = new HashMap<>();
+                    userPrice.put("temp", "temp");
                     FirebasePost post = new FirebasePost(id, productName, img, description, tags, spec, price, userPrice, userUid);
                     String key = databaseReference.child("test").push().getKey();
                     post.id= key;
@@ -139,10 +139,10 @@ public class Register extends AppCompatActivity {
         public ArrayList tags;
         public String spec;
         public String price;
-        public ArrayList userPrice;
+        public HashMap userPrice;
         public String userId;
         public FirebasePost(){}
-        public FirebasePost(String id, String name, String img, String desc, ArrayList tags, String spec, String price, ArrayList userPrice, String userId){
+        public FirebasePost(String id, String name, String img, String desc, ArrayList tags, String spec, String price, HashMap userPrice, String userId){
             this.id = id;
             this.name = name;
             this.img = img;

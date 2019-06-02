@@ -32,6 +32,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class Product extends AppCompatActivity {
@@ -115,13 +116,13 @@ public class Product extends AppCompatActivity {
                         }
                     }
 
-                    ArrayList<String> userPrice = data.userPrice;
+                    HashMap<String, String> userPrice = data.userPrice;
                     if(userPrice!=null){
-                        for(int i=1; i<userPrice.size();i++) {
-                            if(userPrice.get(i) == null)
+                        for( String key : userPrice.keySet() ){
+                            if(userPrice.get(key).equals("temp"))
                                 continue;
-                            String[] price = userPrice.get(i).split("#");
-                            txtView_userPrice.append("user: " + price[1] + "\n");
+                            else
+                                txtView_userPrice.append("user: " + userPrice.get(key) + "\n");
                         }
                     }
                 }
@@ -142,11 +143,10 @@ public class Product extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if(dataSnapshot.exists()){
                             String user = editTxt_priceToRegister.getText().toString();
-                            user = userUid + "#" + user;
                             FirebaseLoad data = dataSnapshot.getValue(FirebaseLoad.class);
                             System.out.println("ddddddddd" + user);
                             //ArrayList<String> userPrice = data.userPrice;
-                            data.userPrice.add(user);
+                            data.userPrice.put(userUid, user);
                             mReference.child("userPrice").setValue(data.userPrice);
                             txtView_userPrice.append("user: " + user +"\n");
                             Toast.makeText(getApplicationContext(), "가격 추천 완료", Toast.LENGTH_LONG);
@@ -170,12 +170,12 @@ public class Product extends AppCompatActivity {
         public ArrayList<String> tags;
         public String spec;
         public String price;
-        public ArrayList<String> userPrice;
+        public HashMap<String, String> userPrice;
 
         public FirebaseLoad() {
 
         }
-        public FirebaseLoad(String id, String name, String img, String desc, ArrayList tags, String spec, String price, ArrayList userPrice){
+        public FirebaseLoad(String id, String name, String img, String desc, ArrayList tags, String spec, String price, HashMap userPrice){
             this.id = id;
             this.name = name;
             this.img = img;
