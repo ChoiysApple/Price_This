@@ -19,6 +19,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -114,8 +115,7 @@ public class MainApp extends AppCompatActivity
             userEmail.setText(user.getEmail());
         }
 
-        //DB load
-        goodsDatabase = FirebaseDatabase.getInstance().getReference();
+        //goodsDatabase.child("test").child("tags");
 
         //final ArrayList<GoodsInfo> GoodsInfoArrayList = new ArrayList<>();
         //final ArrayList<GoodsInfo> GoodsInfoArrayList = new ArrayList<>();
@@ -149,7 +149,7 @@ public class MainApp extends AppCompatActivity
                             oldPostKey.clear();
                             for (DataSnapshot messageData : dataSnapshot.getChildren()) {
                                 FirebaseLoad msg = messageData.getValue(FirebaseLoad.class);
-                                GoodsInfoArrayList_get.add(0, new GoodsInfo(msg.avgPrice, msg.id, msg.name, msg.img, msg.price));
+                                GoodsInfoArrayList_get.add(0, new GoodsInfo(msg.avgPrice, msg.id, msg.name, msg.img, msg.price, msg.tags));
                                 oldPostKey.add(messageData.getKey());
                             }
                             //불러오는 중인지, 전부 불러왔는지 if문
@@ -157,7 +157,7 @@ public class MainApp extends AppCompatActivity
                                 //마지막 중복되는 부분 삭제
                                 GoodsInfoArrayList_get.remove(0);
                                 //contents 뒤에 추가
-                                GoodsInfoArrayList.addAll( GoodsInfoArrayList_get);
+                                GoodsInfoArrayList.addAll(GoodsInfoArrayList_get);
                                 oldPostID = oldPostKey.get(0);
                                 //메시지 갱신 위치
                                 myAdapter.notifyDataSetChanged();
@@ -182,7 +182,7 @@ public class MainApp extends AppCompatActivity
     }
 
     public void loadData() {
-        ArrayList<String> tags = new ArrayList<>();
+        final ArrayList<String> tags = new ArrayList<>();
         //final ArrayList<GoodsInfo> GoodsInfoArrayList = new ArrayList<>();
         final ArrayList<GoodsInfo> GoodsInfoArrayList_get = new ArrayList<>();
         oldPostKey = new ArrayList<>();
@@ -193,8 +193,8 @@ public class MainApp extends AppCompatActivity
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot messageData : dataSnapshot.getChildren()) {
                     FirebaseLoad msg = messageData.getValue(FirebaseLoad.class);
-                    GoodsInfoArrayList.add(0, new GoodsInfo(msg.avgPrice, msg.id, msg.name, msg.img, msg.price));
-                    GoodsInfoArrayList_get.add(0, new GoodsInfo(msg.avgPrice, msg.id, msg.name, msg.img, msg.price));
+                    GoodsInfoArrayList.add(0, new GoodsInfo(msg.avgPrice, msg.id, msg.name, msg.img, msg.price, msg.tags));
+                    GoodsInfoArrayList_get.add(0, new GoodsInfo(msg.avgPrice, msg.id, msg.name, msg.img, msg.price, msg.tags));
                     oldPostKey.add(messageData.getKey());
                     //Collections.reverse(GoodsInfoArrayList);
                 }
@@ -215,13 +215,15 @@ public class MainApp extends AppCompatActivity
         public String name;
         public String img;
         public String price;
+        public ArrayList<String> tags;
         public FirebaseLoad(){}
-        public FirebaseLoad(String avgPrice, String id, String name, String img, String price){
+        public FirebaseLoad(String avgPrice, String id, String name, String img, String price, ArrayList<String> tags){
             this.avgPrice = avgPrice;
             this.id = id;
             this.name = name;
             this.img = img;
             this.price = price;
+            this.tags = tags;
         }
         public Map<String, Object> toMap() {
             HashMap<String, Object> result = new HashMap<>();
@@ -230,6 +232,7 @@ public class MainApp extends AppCompatActivity
             result.put("img", img);
             result.put("price", price);
             result.put("avgPrice", avgPrice);
+            result.put("tags", tags);
             return result;
         }
     }
@@ -244,11 +247,14 @@ public class MainApp extends AppCompatActivity
     }
 
     SearchView searchView;
+    MyAdapter s_Adapter;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.search_menu, menu);
+
+        final ArrayList<GoodsInfo> s_get = new ArrayList<>();
 
         searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setInputType(InputType.TYPE_CLASS_TEXT);
@@ -258,12 +264,24 @@ public class MainApp extends AppCompatActivity
        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
            @Override
            public boolean onQueryTextSubmit(String query) {
-               //CollectionReference citiesRef = db.collection("tags").whereEqualTo("tags", query);
+               int i;
+               s_get.clear();
+               for(i=0; i < GoodsInfoArrayList.size(); i++){
+                   ArrayList<String> s_tag = GoodsInfoArrayList.get(i).goodsTag;
+                   if(s_tag.contains(query)){
+                       //Toast.makeText(getApplicationContext(),query + "이거잇어",Toast.LENGTH_SHORT).show();
+                        s_get.add(0, GoodsInfoArrayList.get(i));
+                   }
+                   i++;
+                   s_Adapter = new MyAdapter(s_get);
+               }
+               mRecyclerView.setAdapter(s_Adapter);
                return false;
            }
 
            @Override
            public boolean onQueryTextChange(String newText) {
+               mRecyclerView.setAdapter(myAdapter);
                return false;
            }
        });

@@ -58,7 +58,6 @@ public class MyPageAnswer extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 intent = new Intent(context, Product.class);
                 intent.putExtra("id", goodsInfoArrayList.get(position).id);
                 context.startActivity(intent);
-                Toast.makeText(context, "이거는 "+goodsInfoArrayList.get(position).goodsName+ "이야 으아악 누르지마", Toast.LENGTH_SHORT).show();
             }
         });
     }
