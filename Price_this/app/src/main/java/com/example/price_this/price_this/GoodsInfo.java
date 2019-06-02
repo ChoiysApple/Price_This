@@ -13,6 +13,12 @@ public class GoodsInfo {
     public ArrayList goodsTag;
     //public ArrayList<String> goodsTag;
 
+    public GoodsInfo(String id, String goodsName, String crrtgoodsPrice){
+        this.id = id;
+        this.goodsName = goodsName;
+        this.crrtgoodsPrice = crrtgoodsPrice;
+    }
+
     public GoodsInfo(String id, String goodsName, String goodsPicture, String crrtgoodsPrice) {
         this.id = id;
         this.goodsName = goodsName;

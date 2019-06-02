@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class MyPageQuestion extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView txtViewGoodsName;
+        TextView txtViewGoodsPrice;
         TextView txtViewGoodsDate;
         TextView txtViewGoodsTag;
 
@@ -21,7 +22,7 @@ public class MyPageQuestion extends RecyclerView.Adapter<RecyclerView.ViewHolder
             super(view);
             txtViewGoodsName = view.findViewById(R.id.txtView_productName);
             txtViewGoodsName.setMaxLines(1);
-            txtViewGoodsDate = view.findViewById(R.id.txtView_date);
+            txtViewGoodsPrice = view.findViewById(R.id.txtView_date);
             txtViewGoodsTag = view.findViewById(R.id.txtView_goodsTag);
         }
     }
@@ -45,6 +46,7 @@ public class MyPageQuestion extends RecyclerView.Adapter<RecyclerView.ViewHolder
         final MyPageQuestion.MyViewHolder myViewHolder = (MyPageQuestion.MyViewHolder) holder;
 
         myViewHolder.txtViewGoodsName.setText(goodsInfoArrayList.get(position).goodsName);
+        myViewHolder.txtViewGoodsPrice.setText(goodsInfoArrayList.get(position).crrtgoodsPrice);
 
 
         myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -53,10 +55,7 @@ public class MyPageQuestion extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 final Intent intent;
                 Context context = v.getContext();
                 intent = new Intent(context, Product.class);
-                intent.putExtra("name", goodsInfoArrayList.get(position).goodsName);
-                intent.putExtra("image", goodsInfoArrayList.get(position).goodsPicture);
-                intent.putExtra("price", goodsInfoArrayList.get(position).crrtgoodsPrice);
-                intent.putExtra("Tags", goodsInfoArrayList.get(position).goodsTag);
+                intent.putExtra("id", goodsInfoArrayList.get(position).id);
                 context.startActivity(intent);
             }
         });
