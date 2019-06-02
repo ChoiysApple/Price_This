@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -54,6 +56,9 @@ public class Product extends AppCompatActivity {
         } catch (Exception e){
             System.out.println(e.getMessage());
         }
+
+        FirebaseUser userInfo = FirebaseAuth.getInstance().getCurrentUser();
+        final String userUid = userInfo.getUid();
 
         txtView_productName = findViewById(R.id.txtView_productName);
         txtView_avgPrice = findViewById(R.id.txtView_avgPrice);
@@ -115,7 +120,8 @@ public class Product extends AppCompatActivity {
                         for(int i=1; i<userPrice.size();i++) {
                             if(userPrice.get(i) == null)
                                 continue;
-                            txtView_userPrice.append("user: " + userPrice.get(i) + "\n");
+                            String[] price = userPrice.get(i).split("#");
+                            txtView_userPrice.append("user: " + price[1] + "\n");
                         }
                     }
                 }
@@ -136,6 +142,7 @@ public class Product extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if(dataSnapshot.exists()){
                             String user = editTxt_priceToRegister.getText().toString();
+                            user = userUid + "#" + user;
                             FirebaseLoad data = dataSnapshot.getValue(FirebaseLoad.class);
                             System.out.println("ddddddddd" + user);
                             //ArrayList<String> userPrice = data.userPrice;
