@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -18,13 +16,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.android.gms.common.internal.safeparcel.SafeParcelable;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -34,7 +30,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -57,7 +52,6 @@ public class MainApp extends AppCompatActivity
     private FirebaseDatabase mDatabase;
     private DatabaseReference mReference;
     private ChildEventListener mChild;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,7 +108,6 @@ public class MainApp extends AppCompatActivity
                     FirebaseLoad msg = messageData.getValue(FirebaseLoad.class);
                     GoodsInfoArrayList.add(0, new GoodsInfo(msg.id, msg.name, msg.img, msg.price));
                     GoodsInfoArrayList_get.add(0, new GoodsInfo(msg.id, msg.name, msg.img, msg.price));
-                    Log.i("디비테스트",messageData.getKey());
                     oldPostKey.add(messageData.getKey());
                     //Collections.reverse(GoodsInfoArrayList);
                 }
@@ -174,47 +167,6 @@ public class MainApp extends AppCompatActivity
                 super.onScrollStateChanged(recyclerView, newState);
             }
         });
-
-        /*주석주석주석
-        goodsDatabase = FirebaseDatabase.getInstance().getReference();
-
-        ArrayList<String> tags = new ArrayList<>();
-        //final ArrayList<GoodsInfo> GoodsInfoArrayList = new ArrayList<>();
-        final ArrayList<GoodsInfo> GoodsInfoArrayList = new ArrayList<>();
-
-        mReference = FirebaseDatabase.getInstance().getReference("test"); // 변경값을 확인할 child 이름
-
-
-        mReference.addChildEventListener(new ChildEventListener(){
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                // child 내에 있는 데이터만큼 반복합니다.
-                FirebaseLoad msg = dataSnapshot.getValue(FirebaseLoad.class);
-                GoodsInfoArrayList.add(0, new GoodsInfo(msg.id, msg.name, msg.img, msg.price));
-                //Collections.reverse(GoodsInfoArrayList);
-                MyAdapter myAdapter = new MyAdapter(GoodsInfoArrayList);
-                mRecyclerView.setAdapter(myAdapter);
-            }
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });*/
     }
 
     public static class FirebaseLoad {
@@ -260,23 +212,25 @@ public class MainApp extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.navigation_menu, menu);
+        getMenuInflater().inflate(R.menu.search_menu, menu);
+/*
+        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setInputType(InputType.TYPE_CLASS_TEXT);
+        searchView.setQueryHint("태그로 검색합니다.");
+
+       searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+           @Override
+           public boolean onQueryTextSubmit(String query) {
+               //CollectionReference citiesRef = db.collection("tags").whereEqualTo("tags", query);
+               return false;
+           }
+
+           @Override
+           public boolean onQueryTextChange(String newText) {
+               return false;
+           }
+       });*/
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.rgst) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
