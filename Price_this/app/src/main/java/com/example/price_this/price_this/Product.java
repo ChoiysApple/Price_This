@@ -3,6 +3,7 @@ package com.example.price_this.price_this;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
@@ -28,6 +29,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 public class Product extends AppCompatActivity {
@@ -39,12 +41,17 @@ public class Product extends AppCompatActivity {
     ImageView imgView_productImg;
     Button btn_register;
     String id;
+    FirebaseUser user;
+
 
     private FirebaseDatabase mDatabase;
     private DatabaseReference mReference;
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.product);
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        final String username = user.getDisplayName();
 
         try{
             getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
@@ -114,6 +121,9 @@ public class Product extends AppCompatActivity {
                     }
                     txtView_avgPrice.setText(data.avgPrice);
 
+                    user = FirebaseAuth.getInstance().getCurrentUser();
+                    String username = user.getDisplayName();
+
                     double sum = 0, cnt=0, avg;
                     //HashMap<String, String> userPrice = data.userPrice;
                     if(data.userPrice!=null){
@@ -121,7 +131,8 @@ public class Product extends AppCompatActivity {
                             if(data.userPrice.get(key).equals("temp"))
                                 continue;
                             else{
-                                txtView_userPrice.append("user: " + data.userPrice.get(key) + "\n");
+                                String[] price = data.userPrice.get(key).split("\\s+");
+                                txtView_userPrice.append("user: "+ price[0] + "원  " + price[1] + " " + price[2] + "\n");
                             }
                         }
                     }
@@ -148,9 +159,14 @@ public class Product extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(),"현재 평균가와 가격 차이가 너무 많이 나요!", Toast.LENGTH_SHORT).show();
                             }
                             else{
-                                data.userPrice.put(userUid, user);
+                                SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
+                                Date time = new Date();
+                                String time1 = format1.format(time);
+                                String priceInfo = user+"  "+time1;
+                                data.userPrice.put(userUid, priceInfo);
                                 mReference.child("userPrice").setValue(data.userPrice);
-                                txtView_userPrice.append("user: " + user +"\n");
+
+                                txtView_userPrice.append("user: "+ user + "원 " + time1);
                                 Toast.makeText(getApplicationContext(), "가격 추천 완료", Toast.LENGTH_LONG).show();
 
                                 double sum = 0, cnt=0, avg;
@@ -160,7 +176,8 @@ public class Product extends AppCompatActivity {
                                         if(data.userPrice.get(key).equals("temp"))
                                             continue;
                                         else{
-                                            sum += Double.parseDouble(data.userPrice.get(key));
+                                            String[] price = data.userPrice.get(key).split("\\s+");
+                                            sum += Double.parseDouble(price[0]);
                                             cnt+=1;
                                         }
                                     }
