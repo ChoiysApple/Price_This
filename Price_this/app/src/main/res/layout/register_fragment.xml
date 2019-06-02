@@ -20,6 +20,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
+            android:singleLine="true"
             android:hint="@string/productToRegister" />
         <View
             android:layout_width="match_parent"
@@ -65,6 +66,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginBottom="7dp"
+                    android:singleLine="true"
                     android:hint="@string/tag"/>
 
             </TableRow>
@@ -100,6 +102,7 @@
                     android:layout_height="50dp"
                     android:layout_weight="6"
                     android:layout_margin="15dp"
+                    android:singleLine="true"
                     android:hint="@string/registerPrice"/>
             </TableRow>
         </TableLayout>

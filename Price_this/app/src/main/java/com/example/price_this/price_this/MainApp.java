@@ -12,13 +12,14 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.LayoutInflater;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -51,6 +52,7 @@ public class MainApp extends AppCompatActivity
     ArrayList<String> oldPostKey;
     String oldPostID;
     MyAdapter myAdapter;
+    SwipeRefreshLayout mSwipeContainer;
 
     TextView userName;
     TextView userEmail;
@@ -98,6 +100,17 @@ public class MainApp extends AppCompatActivity
         mLayoutManager = new GridLayoutManager(this, 2);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        mSwipeContainer = findViewById(R.id.swipe_layout);
+
+        mSwipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadData();
+
+                mSwipeContainer.setRefreshing(false);
+            }
+        });
+
         btn_floating = findViewById(R.id.btn_floating);
         btn_floating.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,28 +140,7 @@ public class MainApp extends AppCompatActivity
         final ArrayList<GoodsInfo> GoodsInfoArrayList_get = new ArrayList<>();
         oldPostKey = new ArrayList<>();
 
-        mReference = FirebaseDatabase.getInstance().getReference("test"); // 변경값을 확인할 child 이름
-
-        mReference.limitToLast(10).addListenerForSingleValueEvent(new ValueEventListener(){
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot messageData : dataSnapshot.getChildren()) {
-                    FirebaseLoad msg = messageData.getValue(FirebaseLoad.class);
-                    GoodsInfoArrayList.add(0, new GoodsInfo(msg.id, msg.name, msg.img, msg.price));
-                    GoodsInfoArrayList_get.add(0, new GoodsInfo(msg.id, msg.name, msg.img, msg.price));
-                    oldPostKey.add(messageData.getKey());
-                    //Collections.reverse(GoodsInfoArrayList);
-                }
-                oldPostID = oldPostKey.get(0);
-                myAdapter = new MyAdapter(GoodsInfoArrayList);
-                mRecyclerView.setAdapter(myAdapter);
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(getApplicationContext(), "게시글 불러오기를 실패했어요!",
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
+        loadData();
 
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -195,8 +187,39 @@ public class MainApp extends AppCompatActivity
                 super.onScrollStateChanged(recyclerView, newState);
             }
         });
+
+
     }
 
+    public void loadData() {
+        ArrayList<String> tags = new ArrayList<>();
+        //final ArrayList<GoodsInfo> GoodsInfoArrayList = new ArrayList<>();
+        final ArrayList<GoodsInfo> GoodsInfoArrayList = new ArrayList<>();
+        final ArrayList<GoodsInfo> GoodsInfoArrayList_get = new ArrayList<>();
+        oldPostKey = new ArrayList<>();
+
+        mReference = FirebaseDatabase.getInstance().getReference("test"); // 변경값을 확인할 child 이름
+        mReference.limitToLast(10).addListenerForSingleValueEvent(new ValueEventListener(){
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot messageData : dataSnapshot.getChildren()) {
+                    FirebaseLoad msg = messageData.getValue(FirebaseLoad.class);
+                    GoodsInfoArrayList.add(0, new GoodsInfo(msg.id, msg.name, msg.img, msg.price));
+                    GoodsInfoArrayList_get.add(0, new GoodsInfo(msg.id, msg.name, msg.img, msg.price));
+                    oldPostKey.add(messageData.getKey());
+                    //Collections.reverse(GoodsInfoArrayList);
+                }
+                oldPostID = oldPostKey.get(0);
+                myAdapter = new MyAdapter(GoodsInfoArrayList);
+                mRecyclerView.setAdapter(myAdapter);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(getApplicationContext(), "게시글 불러오기를 실패했어요!",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     public static class FirebaseLoad {
         public String id;
         public String name;
@@ -237,13 +260,16 @@ public class MainApp extends AppCompatActivity
         }
     }
 
+    SearchView searchView;
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.search_menu, menu);
-/*
+
         searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setInputType(InputType.TYPE_CLASS_TEXT);
+        searchView.setMaxWidth(Integer.MAX_VALUE);
         searchView.setQueryHint("태그로 검색합니다.");
 
        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -257,7 +283,7 @@ public class MainApp extends AppCompatActivity
            public boolean onQueryTextChange(String newText) {
                return false;
            }
-       });*/
+       });
         return true;
     }
 

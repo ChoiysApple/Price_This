@@ -112,14 +112,17 @@ public class Product extends AppCompatActivity {
                             }
                         }
                     }
+                    txtView_avgPrice.setText(data.avgPrice);
 
-                    HashMap<String, String> userPrice = data.userPrice;
-                    if(userPrice!=null){
-                        for( String key : userPrice.keySet() ){
-                            if(userPrice.get(key).equals("temp"))
+                    double sum = 0, cnt=0, avg;
+                    //HashMap<String, String> userPrice = data.userPrice;
+                    if(data.userPrice!=null){
+                        for( String key : data.userPrice.keySet() ){
+                            if(data.userPrice.get(key).equals("temp"))
                                 continue;
-                            else
-                                txtView_userPrice.append("user: " + userPrice.get(key) + "\n");
+                            else{
+                                txtView_userPrice.append("user: " + data.userPrice.get(key) + "\n");
+                            }
                         }
                     }
                 }
@@ -141,12 +144,26 @@ public class Product extends AppCompatActivity {
                         if(dataSnapshot.exists()){
                             String user = editTxt_priceToRegister.getText().toString();
                             FirebaseLoad data = dataSnapshot.getValue(FirebaseLoad.class);
-                            System.out.println("ddddddddd" + user);
-                            //ArrayList<String> userPrice = data.userPrice;
                             data.userPrice.put(userUid, user);
                             mReference.child("userPrice").setValue(data.userPrice);
                             txtView_userPrice.append("user: " + user +"\n");
                             Toast.makeText(getApplicationContext(), "가격 추천 완료", Toast.LENGTH_LONG);
+
+                            double sum = 0, cnt=0, avg;
+                            //HashMap<String, String> userPrice = data.userPrice;
+                            if(data.userPrice!=null){
+                                for( String key : data.userPrice.keySet() ){
+                                    if(data.userPrice.get(key).equals("temp"))
+                                        continue;
+                                    else{
+                                        sum += Double.parseDouble(data.userPrice.get(key));
+                                        cnt+=1;
+                                    }
+                                }
+                            }
+                            avg = sum/cnt;
+                            String avgPrice = Double.toString(avg);
+                            mReference.child("avgPrice").setValue(avgPrice);
                         }
                     }
                     @Override
@@ -167,12 +184,13 @@ public class Product extends AppCompatActivity {
         public ArrayList<String> tags;
         public String spec;
         public String price;
+        public String avgPrice;
         public HashMap<String, String> userPrice;
 
         public FirebaseLoad() {
 
         }
-        public FirebaseLoad(String id, String name, String img, String desc, ArrayList tags, String spec, String price, HashMap userPrice){
+        public FirebaseLoad(String id, String name, String img, String desc, ArrayList tags, String spec, String price, String avgPrice, HashMap userPrice){
             this.id = id;
             this.name = name;
             this.img = img;
@@ -180,6 +198,7 @@ public class Product extends AppCompatActivity {
             this.tags = tags;
             this.spec = spec;
             this.price = price;
+            this.avgPrice = avgPrice;
             this.userPrice = userPrice;
         }
     }

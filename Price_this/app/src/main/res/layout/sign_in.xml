@@ -74,7 +74,7 @@
         <ImageButton
             android:id="@+id/btn_signin"
             android:layout_width="fill_parent"
-            android:layout_height="60dp"
+            android:layout_height="48dp"
             android:layout_marginTop="15dp"
             android:src="@drawable/bttn_login"
             android:scaleType="fitXY"
