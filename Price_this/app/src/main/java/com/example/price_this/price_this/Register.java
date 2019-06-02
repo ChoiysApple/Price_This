@@ -99,6 +99,7 @@ public class Register extends AppCompatActivity {
                 String tag = editTxt_tag.getText().toString();
                 String spec = editTxt_spec.getText().toString();
                 String price = editTxt_price.getText().toString();
+                String avgPrice = "";
                 //String img = pathReference.toString();
                 if(tag.isEmpty()){
                     Toast.makeText(getApplicationContext(), "상품 태그를 하나 이상 입력해 주세요!", Toast.LENGTH_SHORT).show();
@@ -120,7 +121,7 @@ public class Register extends AppCompatActivity {
                     }
                     HashMap<String, String> userPrice = new HashMap<>();
                     userPrice.put("temp", "temp");
-                    FirebasePost post = new FirebasePost(id, productName, img, description, tags, spec, price, userPrice, userUid);
+                    FirebasePost post = new FirebasePost(id, productName, img, description, tags, spec, price, avgPrice, userPrice, userUid);
                     String key = databaseReference.child("test").push().getKey();
                     post.id= key;
                     databaseReference.child("test").child(key).setValue(post.toMap());
@@ -139,10 +140,11 @@ public class Register extends AppCompatActivity {
         public ArrayList tags;
         public String spec;
         public String price;
+        public String avgPrice;
         public HashMap userPrice;
         public String userId;
         public FirebasePost(){}
-        public FirebasePost(String id, String name, String img, String desc, ArrayList tags, String spec, String price, HashMap userPrice, String userId){
+        public FirebasePost(String id, String name, String img, String desc, ArrayList tags, String spec, String price, String avgPrice, HashMap userPrice, String userId){
             this.id = id;
             this.name = name;
             this.img = img;
@@ -150,6 +152,7 @@ public class Register extends AppCompatActivity {
             this.tags = tags;
             this.spec = spec;
             this.price = price;
+            this.avgPrice = avgPrice;
             this.userPrice = userPrice;
             this.userId = userId;
         }
@@ -162,6 +165,7 @@ public class Register extends AppCompatActivity {
             result.put("description", desc);
             result.put("spec", spec);
             result.put("tags", tags);
+            result.put("avgPrice", avgPrice);
             result.put("userPrice", userPrice);
             result.put("userId", userId);
             return result;

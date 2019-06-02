@@ -51,20 +51,22 @@
             />
             <TableRow>
                 <TextView
-                    android:layout_width="40dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="2"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginBottom="40dp"
+                    android:layout_marginBottom="30dp"
                     android:text="@string/goodsTag"
                     android:textColor="#50b5c5"
                     android:textSize="20dp" />
 
                 <TextView
                     android:id="@+id/txtView_goodsTag"
-                    android:layout_width="230dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="9"
                     android:layout_margin="10dp"
                     android:textColor="#a1d8e4"
                     android:textSize="20dp"
@@ -106,18 +108,20 @@
             <TableRow>
 
                 <TextView
-                    android:layout_width="50dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
+                    android:layout_weight="2"
                     android:text="@string/registeredPrice"
                     android:textColor="#50b5c5"
                     android:textSize="20dp"
                     android:gravity="left"/>
                 <TextView
                     android:id="@+id/txtView_regPrice"
-                    android:layout_width="200dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="9"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:textSize="20dp"
@@ -127,8 +131,9 @@
 
             <TableRow>
                 <TextView
-                    android:layout_width="50dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="2"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
@@ -139,8 +144,9 @@
 
                 <TextView
                     android:id="@+id/txtView_avgPrice"
-                    android:layout_width="200dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="9"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
