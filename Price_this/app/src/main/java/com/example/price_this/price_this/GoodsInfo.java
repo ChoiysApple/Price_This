@@ -10,8 +10,7 @@ public class GoodsInfo {
     public String avgPrice;
     public String goodsRank;
     public String goodsName;
-    public ArrayList goodsTag;
-    //public ArrayList<String> goodsTag;
+    public ArrayList<String> goodsTag;
 
     public GoodsInfo(String id, String goodsName, String crrtgoodsPrice){
         this.id = id;
@@ -19,11 +18,17 @@ public class GoodsInfo {
         this.crrtgoodsPrice = crrtgoodsPrice;
     }
 
-    public GoodsInfo(String avgPrice, String id, String goodsName, String goodsPicture, String crrtgoodsPrice) {
+    public GoodsInfo(String avgPrice, String id, String goodsName, String goodsPicture, String crrtgoodsPrice, ArrayList<String> goodsTag) {
         this.id = id;
         this.goodsName = goodsName;
         this.goodsPicture = goodsPicture;
         this.crrtgoodsPrice = crrtgoodsPrice;
         this.avgPrice = avgPrice;
+        this.goodsTag = goodsTag;
+    }
+
+    public ArrayList<String> getGoodsTag(){
+        return goodsTag;
     }
 }
+
