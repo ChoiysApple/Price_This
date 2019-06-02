@@ -62,13 +62,6 @@
                             android:text="@string/email"
                             android:textSize="13dp" />
 
-                        <TextView
-                            android:id="@+id/txtView_point"
-                            android:layout_width="250dp"
-                            android:layout_height="30dp"
-                            android:padding="3dp"
-                            android:text="@string/point"
-                            android:textSize="15dp" />
                     </LinearLayout>
 
 
@@ -124,18 +117,6 @@
 
             </TableLayout>
 
-            <Button
-                android:id="@+id/btn_modify"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/btn_null"
-                android:text="@string/modify"
-                android:textColor="#ffffff"
-                android:textSize="25dp" />
 
         </LinearLayout>
     </ScrollView>
