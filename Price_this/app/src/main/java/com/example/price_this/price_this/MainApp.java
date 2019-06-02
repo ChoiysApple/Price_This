@@ -291,11 +291,10 @@ public class MainApp extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
 
-
-
-
-
-
+        if (user != null) {
+            userName.setText(user.getDisplayName());
+            userEmail.setText(user.getEmail());
+        }
 
         // Handle navigation view item clicks here.
         int id = item.getItemId();
@@ -313,6 +312,8 @@ public class MainApp extends AppCompatActivity
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://forms.gle/jCL2tFMUjyY2feth6"));
             startActivity(intent);
         } else if (id == R.id.setting) {
+            Intent intent = new Intent(getApplicationContext(), editName.class);
+            startActivity(intent);
         } else if (id == R.id.logout) {
             auto = getSharedPreferences(PREF_USER_ACCOUNT, Activity.MODE_PRIVATE);
             toEdit = auto.edit();
@@ -325,4 +326,6 @@ public class MainApp extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }

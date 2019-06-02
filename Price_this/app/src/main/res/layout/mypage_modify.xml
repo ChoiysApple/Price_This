@@ -5,7 +5,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#E0F2F7"
+        android:background="#fcfdf3"
         android:orientation="vertical">
 
         <TableLayout
@@ -13,45 +13,46 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="50dp">
+            <!--
+                        <TableRow android:padd"10dp">
 
-            <TableRow android:padding="10dp">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:padding="10dp"
+                                android:text="@string/email"
+                                android:textSize="15dp" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="10dp"
-                    android:text="@string/email"
-                    android:textSize="15dp" />
+                            <EditText
+                                android:id="@+id/editTxt_email"
+                                android:layout_width="250dp"
+                                android:layout_height="40dp"
+                                android:background="@drawable/search_frame"
+                                android:padding="10dp"
+                                android:text="@string/NULL"
+                                android:textSize="15dp" />
 
-                <EditText
-                    android:id="@+id/editTxt_email"
-                    android:layout_width="250dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/search_frame"
-                    android:padding="10dp"
-                    android:text="@string/NULL"
-                    android:textSize="15dp" />
+                        </TableRow>
 
-            </TableRow>
+                        <TableRow android:padding="10dp">
 
-            <TableRow android:padding="10dp">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:padding="10dp"
+                                android:text="@string/password"
+                                android:textSize="15dp" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="10dp"
-                    android:text="@string/password"
-                    android:textSize="15dp" />
+                            <EditText
+                                android:id="@+id/editTxt_password"
+                                android:layout_width="250dp"
+                                android:layout_height="40dp"
+                                android:background="@drawable/search_frame"
+                                android:padding="10dp"
+                                android:textSize="15dp" />
+                        </TableRow>
 
-                <EditText
-                    android:id="@+id/editTxt_password"
-                    android:layout_width="250dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/search_frame"
-                    android:padding="10dp"
-                    android:textSize="15dp" />
-            </TableRow>
-
+            -->
             <TableRow android:padding="10dp">
 
                 <TextView
@@ -72,7 +73,7 @@
         </TableLayout>
 
         <Button
-            android:id="@+id/btn_modify"
+            android:id="@+id/btn_modifyName"
             android:layout_width="100dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
