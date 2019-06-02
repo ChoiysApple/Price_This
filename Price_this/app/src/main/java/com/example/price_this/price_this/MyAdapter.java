@@ -74,7 +74,14 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             }
         });
 
-        myViewHolder.txtViewPrice.setText(goodsInfoArrayList.get(position).crrtgoodsPrice);
+        String price;
+        if(goodsInfoArrayList.get(position).avgPrice == null || goodsInfoArrayList.get(position).avgPrice.length() == 0) {
+            price = goodsInfoArrayList.get(position).crrtgoodsPrice + "원";
+        }
+        else{
+            price = goodsInfoArrayList.get(position).avgPrice + "원";
+        }
+        myViewHolder.txtViewPrice.setText(price);
         myViewHolder.txtViewGoodsName.setText(goodsInfoArrayList.get(position).goodsName);
 
         myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {

@@ -141,29 +141,38 @@ public class Product extends AppCompatActivity {
                 mReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        String user = editTxt_priceToRegister.getText().toString();
+                        FirebaseLoad data = dataSnapshot.getValue(FirebaseLoad.class);
                         if(dataSnapshot.exists()){
-                            String user = editTxt_priceToRegister.getText().toString();
-                            FirebaseLoad data = dataSnapshot.getValue(FirebaseLoad.class);
-                            data.userPrice.put(userUid, user);
-                            mReference.child("userPrice").setValue(data.userPrice);
-                            txtView_userPrice.append("user: " + user +"\n");
-                            Toast.makeText(getApplicationContext(), "가격 추천 완료", Toast.LENGTH_LONG);
+                            if(Double.parseDouble(data.avgPrice)*1.4 < Double.parseDouble(user) || Double.parseDouble(data.avgPrice)*0.6 > Double.parseDouble(user)){
+                                Toast.makeText(getApplicationContext(),"현재 평균가와 가격 차이가 너무 많이 나요!", Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                data.userPrice.put(userUid, user);
+                                mReference.child("userPrice").setValue(data.userPrice);
+                                txtView_userPrice.append("user: " + user +"\n");
+                                Toast.makeText(getApplicationContext(), "가격 추천 완료", Toast.LENGTH_LONG).show();
 
-                            double sum = 0, cnt=0, avg;
-                            //HashMap<String, String> userPrice = data.userPrice;
-                            if(data.userPrice!=null){
-                                for( String key : data.userPrice.keySet() ){
-                                    if(data.userPrice.get(key).equals("temp"))
-                                        continue;
-                                    else{
-                                        sum += Double.parseDouble(data.userPrice.get(key));
-                                        cnt+=1;
+                                double sum = 0, cnt=0, avg;
+                                //HashMap<String, String> userPrice = data.userPrice;
+                                if(data.userPrice!=null){
+                                    for( String key : data.userPrice.keySet() ){
+                                        if(data.userPrice.get(key).equals("temp"))
+                                            continue;
+                                        else{
+                                            sum += Double.parseDouble(data.userPrice.get(key));
+                                            cnt+=1;
+                                        }
                                     }
                                 }
+                                Double crrt = Double.parseDouble(data.avgPrice) * 70;
+                                sum = sum*(30/cnt);
+                                avg = (sum+crrt)/100;
+                                int intAvg = (int)Math.round(avg);
+                                String avgPrice = Integer.toString(intAvg);
+                                mReference.child("avgPrice").setValue(avgPrice);
+                                txtView_avgPrice.setText(avgPrice);
                             }
-                            avg = sum/cnt;
-                            String avgPrice = Double.toString(avg);
-                            mReference.child("avgPrice").setValue(avgPrice);
                         }
                     }
                     @Override

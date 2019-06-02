@@ -75,7 +75,6 @@ public class Register extends AppCompatActivity {
         editTxt_spec = findViewById(R.id.editTxt_spec);
         editTxt_price = findViewById(R.id.editText_priceToRegister);
 
-
         final String id = "000000";
         int date = 0;
 
@@ -99,7 +98,8 @@ public class Register extends AppCompatActivity {
                 String tag = editTxt_tag.getText().toString();
                 String spec = editTxt_spec.getText().toString();
                 String price = editTxt_price.getText().toString();
-                String avgPrice = "";
+                //초기에 평균가가 비어있지 않게
+                String avgPrice = editTxt_price.getText().toString();
                 //String img = pathReference.toString();
                 if(tag.isEmpty()){
                     Toast.makeText(getApplicationContext(), "상품 태그를 하나 이상 입력해 주세요!", Toast.LENGTH_SHORT).show();
