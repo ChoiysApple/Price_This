@@ -47,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         mEmailField = findViewById(R.id.field_email);
@@ -59,7 +61,22 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     createUser(mEmailField.getText().toString(), mPasswordField.getText().toString());
+                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                            .setDisplayName(mUsernameField.getText().toString())
+                            .setPhotoUri(Uri.parse("https://example.com/jane-q-user/profile.jpg"))
+                            .build();
+
+                    user.updateProfile(profileUpdates)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Log.d(TAG, "User profile updated.");
+                                    }
+                                }
+                            });
                 }
                 catch(Exception e){
                     Log.d("Exception", e.toString());
@@ -137,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    /*
+
     public void sendEmailVerificationWithContinueUrl() {
         // [START send_email_verification_with_continue_url]
         FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -160,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
-    }*/
+    }
 
 
 

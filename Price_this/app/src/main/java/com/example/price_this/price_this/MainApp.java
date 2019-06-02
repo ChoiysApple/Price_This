@@ -1,6 +1,7 @@
 package com.example.price_this.price_this;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -16,18 +17,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,18 +52,27 @@ public class MainApp extends AppCompatActivity
     String oldPostID;
     MyAdapter myAdapter;
 
+    TextView userName;
+    TextView userEmail;
+
     private FirebaseAuth mAuth;
+    FirebaseUser user;
     SharedPreferences auto;
     SharedPreferences.Editor toEdit;
     private String PREF_USER_ACCOUNT = "account";
     private FirebaseDatabase mDatabase;
     private DatabaseReference mReference;
     private ChildEventListener mChild;
+    private boolean isUserHeader = false;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.app_main);
+
+
 
         //네비게이션바(액션바) 설정
         naviBar = (Toolbar)findViewById(R.id.rabbit_toolbar);
@@ -74,6 +90,8 @@ public class MainApp extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
+
         //리사이클러뷰 설정
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
@@ -89,6 +107,16 @@ public class MainApp extends AppCompatActivity
             }
         });
 
+
+        //change header info
+        View navi_view = navigationView.getHeaderView(0);
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        userName = (TextView) navi_view.findViewById(R.id.txtView_userName);
+        userEmail = (TextView) navi_view.findViewById(R.id.txtView_userEmail);
+        if (user != null) {
+            userName.setText(user.getDisplayName());
+            userEmail.setText(user.getEmail());
+        }
 
         //DB load
         goodsDatabase = FirebaseDatabase.getInstance().getReference();
@@ -236,6 +264,13 @@ public class MainApp extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+
+
+
+
+
+
+
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
