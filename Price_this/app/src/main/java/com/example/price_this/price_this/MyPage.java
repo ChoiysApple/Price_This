@@ -83,7 +83,7 @@ public class MyPage extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {}
         });
 
-        /*Query searchA = mReference.orderByChild("userPrice").startAt(userUid);
+        Query searchA = mReference.orderByChild("userPrice").startAt(userUid);
         searchA.addChildEventListener(new ChildEventListener(){
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -100,7 +100,7 @@ public class MyPage extends AppCompatActivity {
             public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {}
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {}
-        });*/
+        });
 
     }
     public static class FirebaseLoad {
@@ -111,12 +111,12 @@ public class MyPage extends AppCompatActivity {
         public ArrayList<String> tags;
         public String spec;
         public String price;
-        public ArrayList<String> userPrice;
+        public Map<String, String> userPrice;
 
         public FirebaseLoad() {
 
         }
-        public FirebaseLoad(String id, String name, String img, String desc, ArrayList tags, String spec, String price, ArrayList userPrice){
+        public FirebaseLoad(String id, String name, String img, String desc, ArrayList tags, String spec, String price, Map userPrice){
             this.id = id;
             this.name = name;
             this.img = img;

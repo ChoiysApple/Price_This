@@ -58,7 +58,12 @@ public class MainActivity extends AppCompatActivity {
         sign_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createUser(mEmailField.getText().toString(), mPasswordField.getText().toString());
+                try {
+                    createUser(mEmailField.getText().toString(), mPasswordField.getText().toString());
+                }
+                catch(Exception e){
+                    Log.d("Exception", e.toString());
+                }
             }
         });
 
@@ -86,6 +91,16 @@ public class MainActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             Toast.makeText(getApplicationContext(), "SIgn up succesful", Toast.LENGTH_LONG).show();
+
+                            mAuth.getCurrentUser().sendEmailVerification()
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                Log.d(TAG, "Email sent.");
+                                            }
+                                        }
+                                    });
 
                             Intent intent=new Intent(MainActivity.this,signIn.class);
                             startActivity(intent);
