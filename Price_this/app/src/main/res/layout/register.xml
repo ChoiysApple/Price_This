@@ -19,7 +19,7 @@
             android:padding="20dp">
         <fragment
             android:id="@+id/frag_register"
-            android:name="com.example.price_this.price_this.RegisterFragment"
+            android:name="com.MarchenGraffiti.price_this.price_this.RegisterFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"/>

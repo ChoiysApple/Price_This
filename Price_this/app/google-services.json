@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:1039730068985:android:248045e2d9e0bb73",
         "android_client_info": {
-          "package_name": "com.example.price_this.price_this"
+          "package_name": "com.MarchenGraffiti.price_this.price_this"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "1039730068985-cm518m79l0qv3781s4f0l2k4rvo5kmts.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.price_this.price_this",
+            "package_name": "com.MarchenGraffiti.price_this.price_this",
             "certificate_hash": "4bde4a6bda17e3ca282640b1ee4b81ffad855d44"
           }
         },
@@ -26,7 +26,7 @@
           "client_id": "1039730068985-uk890skt55o401d45ibab4o40fb84cfr.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.price_this.price_this",
+            "package_name": "com.MarchenGraffiti.price_this.price_this",
             "certificate_hash": "d96d3a53f1549ea9619275487ad1e6182a47ddd0"
           }
         },
