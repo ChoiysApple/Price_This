@@ -114,14 +114,15 @@ public class MainActivity extends AppCompatActivity {
         toEdit = auto.edit();
         auto = getSharedPreferences(PREF_USER_ACCOUNT, MODE_PRIVATE);
         if (auto != null && auto.contains("saved_email")&& auto.contains("saved_password")) {
-            String email = auto.getString("saved_email", "noname");
-            String password = auto.getString("saved_password", "noname");
+            //String email = auto.getString("saved_email", "noname");
+            //String password = auto.getString("saved_password", "noname");
             Intent intent=new Intent(MainActivity.this,signIn.class);
             startActivity(intent);
         }
 
     }
 
+    /*
     public void sendEmailVerificationWithContinueUrl() {
         // [START send_email_verification_with_continue_url]
         FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -144,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
-    }
+    }*/
 
 
 

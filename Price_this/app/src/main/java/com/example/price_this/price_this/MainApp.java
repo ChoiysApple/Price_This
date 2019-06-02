@@ -1,7 +1,10 @@
 package com.example.price_this.price_this;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -19,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.gms.common.internal.safeparcel.SafeParcelable;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,10 +43,14 @@ public class MainApp extends AppCompatActivity
     DatabaseReference goodsDatabase;
     FloatingActionButton btn_floating;
     Toolbar naviBar;
-
+    private FirebaseAuth mAuth;
+    SharedPreferences auto;
+    SharedPreferences.Editor toEdit;
+    private String PREF_USER_ACCOUNT = "account";
     private FirebaseDatabase mDatabase;
     private DatabaseReference mReference;
     private ChildEventListener mChild;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -199,6 +207,11 @@ public class MainApp extends AppCompatActivity
         } else if (id == R.id.bug_report) {
         } else if (id == R.id.setting) {
         } else if (id == R.id.logout) {
+            auto = getSharedPreferences(PREF_USER_ACCOUNT, Activity.MODE_PRIVATE);
+            toEdit = auto.edit();
+            toEdit.clear();
+            toEdit.commit();
+            mAuth.signOut();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawerLayout);
