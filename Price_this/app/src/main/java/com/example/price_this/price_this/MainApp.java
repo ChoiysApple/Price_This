@@ -15,7 +15,9 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -209,13 +211,16 @@ public class MainApp extends AppCompatActivity
         }
     }
 
+    SearchView searchView;
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.search_menu, menu);
-/*
+
         searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setInputType(InputType.TYPE_CLASS_TEXT);
+        searchView.setMaxWidth(Integer.MAX_VALUE);
         searchView.setQueryHint("태그로 검색합니다.");
 
        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -229,7 +234,7 @@ public class MainApp extends AppCompatActivity
            public boolean onQueryTextChange(String newText) {
                return false;
            }
-       });*/
+       });
         return true;
     }
 
