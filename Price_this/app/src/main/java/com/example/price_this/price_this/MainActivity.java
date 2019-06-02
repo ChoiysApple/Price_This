@@ -146,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
         toEdit = auto.edit();
         auto = getSharedPreferences(PREF_USER_ACCOUNT, MODE_PRIVATE);
         if (auto != null && auto.contains("saved_email")&& auto.contains("saved_password")) {
+            Toast.makeText(getApplicationContext(), "자동 로그인 중입니다", Toast.LENGTH_LONG).show();
             //String email = auto.getString("saved_email", "noname");
             //String password = auto.getString("saved_password", "noname");
             Intent intent=new Intent(MainActivity.this,signIn.class);

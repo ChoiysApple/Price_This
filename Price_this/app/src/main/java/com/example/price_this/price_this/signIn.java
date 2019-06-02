@@ -71,6 +71,7 @@ public class signIn extends AppCompatActivity {
                             Intent intent = new Intent(signIn.this, MainApp.class);
                             startActivity(intent);
 
+                            finish();
                         } else {
                             // 로그인 실패
                             Toast.makeText(signIn.this, "올바르지 않은 패스워드 또는 이메일입니다!", Toast.LENGTH_SHORT).show();
@@ -90,6 +91,7 @@ public class signIn extends AppCompatActivity {
     private void autoSignin() {
         auto = getSharedPreferences(PREF_USER_ACCOUNT, MODE_PRIVATE);
         if (auto != null && auto.contains("saved_email")&& auto.contains("saved_password")) {
+            Toast.makeText(getApplicationContext(), "자동 로그인 중입니다", Toast.LENGTH_LONG).show();
             String email = auto.getString("saved_email", "noname");
             String password = auto.getString("saved_password", "noname");
             this.loginUser(email, password);
