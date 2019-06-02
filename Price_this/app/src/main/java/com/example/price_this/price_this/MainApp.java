@@ -1,7 +1,6 @@
 package com.example.price_this.price_this;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -35,8 +34,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -67,14 +64,13 @@ public class MainApp extends AppCompatActivity
     private ChildEventListener mChild;
     private boolean isUserHeader = false;
 
-
+    final ArrayList<GoodsInfo> GoodsInfoArrayList = new ArrayList<>();
+    final ArrayList<GoodsInfo> GoodsInfoArrayList_get = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.app_main);
-
-
 
         //네비게이션바(액션바) 설정
         naviBar = (Toolbar)findViewById(R.id.rabbit_toolbar);
@@ -92,8 +88,6 @@ public class MainApp extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
-
         //리사이클러뷰 설정
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
@@ -101,15 +95,6 @@ public class MainApp extends AppCompatActivity
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         mSwipeContainer = findViewById(R.id.swipe_layout);
-
-        mSwipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                loadData();
-
-                mSwipeContainer.setRefreshing(false);
-            }
-        });
 
         btn_floating = findViewById(R.id.btn_floating);
         btn_floating.setOnClickListener(new View.OnClickListener() {
@@ -119,7 +104,6 @@ public class MainApp extends AppCompatActivity
                 startActivity(intent);
             }
         });
-
 
         //change header info
         View navi_view = navigationView.getHeaderView(0);
@@ -134,10 +118,9 @@ public class MainApp extends AppCompatActivity
         //DB load
         goodsDatabase = FirebaseDatabase.getInstance().getReference();
 
-        ArrayList<String> tags = new ArrayList<>();
         //final ArrayList<GoodsInfo> GoodsInfoArrayList = new ArrayList<>();
-        final ArrayList<GoodsInfo> GoodsInfoArrayList = new ArrayList<>();
-        final ArrayList<GoodsInfo> GoodsInfoArrayList_get = new ArrayList<>();
+        //final ArrayList<GoodsInfo> GoodsInfoArrayList = new ArrayList<>();
+        //final ArrayList<GoodsInfo> GoodsInfoArrayList_get = new ArrayList<>();
         oldPostKey = new ArrayList<>();
 
         loadData();
@@ -147,6 +130,15 @@ public class MainApp extends AppCompatActivity
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 //마지막 체크
+                if(!mRecyclerView.canScrollVertically(-1)){
+                    mSwipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                        @Override
+                        public void onRefresh() {
+                            loadData();
+                            mSwipeContainer.setRefreshing(false);
+                        }
+                    });
+                }
                 if(!mRecyclerView.canScrollVertically(1)){
                     if(GoodsInfoArrayList_get.size()==10){
                         Toast.makeText(getApplicationContext(), "잠시만 기다려주세요~", Toast.LENGTH_SHORT).show();
@@ -156,10 +148,9 @@ public class MainApp extends AppCompatActivity
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             GoodsInfoArrayList_get.clear(); //임시저장 위치
                             oldPostKey.clear();
-
                             for (DataSnapshot messageData : dataSnapshot.getChildren()) {
                                 FirebaseLoad msg = messageData.getValue(FirebaseLoad.class);
-                                GoodsInfoArrayList_get.add(0, new GoodsInfo(msg.id, msg.name, msg.img, msg.price));
+                                GoodsInfoArrayList_get.add(0, new GoodsInfo(msg.avgPrice, msg.id, msg.name, msg.img, msg.price));
                                 oldPostKey.add(messageData.getKey());
                             }
                             //불러오는 중인지, 전부 불러왔는지 if문
@@ -194,8 +185,6 @@ public class MainApp extends AppCompatActivity
     public void loadData() {
         ArrayList<String> tags = new ArrayList<>();
         //final ArrayList<GoodsInfo> GoodsInfoArrayList = new ArrayList<>();
-        final ArrayList<GoodsInfo> GoodsInfoArrayList = new ArrayList<>();
-        final ArrayList<GoodsInfo> GoodsInfoArrayList_get = new ArrayList<>();
         oldPostKey = new ArrayList<>();
 
         mReference = FirebaseDatabase.getInstance().getReference("test"); // 변경값을 확인할 child 이름
@@ -204,8 +193,8 @@ public class MainApp extends AppCompatActivity
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot messageData : dataSnapshot.getChildren()) {
                     FirebaseLoad msg = messageData.getValue(FirebaseLoad.class);
-                    GoodsInfoArrayList.add(0, new GoodsInfo(msg.id, msg.name, msg.img, msg.price));
-                    GoodsInfoArrayList_get.add(0, new GoodsInfo(msg.id, msg.name, msg.img, msg.price));
+                    GoodsInfoArrayList.add(0, new GoodsInfo(msg.avgPrice, msg.id, msg.name, msg.img, msg.price));
+                    GoodsInfoArrayList_get.add(0, new GoodsInfo(msg.avgPrice, msg.id, msg.name, msg.img, msg.price));
                     oldPostKey.add(messageData.getKey());
                     //Collections.reverse(GoodsInfoArrayList);
                 }
@@ -221,21 +210,17 @@ public class MainApp extends AppCompatActivity
         });
     }
     public static class FirebaseLoad {
+        public String avgPrice;
         public String id;
         public String name;
         public String img;
-        public String desc;
-        public ArrayList<String> tags;
-        public String spec;
         public String price;
         public FirebaseLoad(){}
-        public FirebaseLoad(String id, String name, String img, String desc, ArrayList<String> tags, String spec, String price){
+        public FirebaseLoad(String avgPrice, String id, String name, String img, String price){
+            this.avgPrice = avgPrice;
             this.id = id;
             this.name = name;
             this.img = img;
-            this.desc = desc;
-            this.tags = tags;
-            this.spec = spec;
             this.price = price;
         }
         public Map<String, Object> toMap() {
@@ -244,9 +229,7 @@ public class MainApp extends AppCompatActivity
             result.put("name", name);
             result.put("img", img);
             result.put("price", price);
-            result.put("description", desc);
-            result.put("spec", spec);
-            result.put("tags", tags);
+            result.put("avgPrice", avgPrice);
             return result;
         }
     }
@@ -300,12 +283,6 @@ public class MainApp extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.account) {
-            Intent intent = new Intent(getApplicationContext(), MyPage.class);
-            startActivity(intent);
-        } else if (id == R.id.rgst) {
-            Intent intent = new Intent(getApplicationContext(), MyPage.class);
-            startActivity(intent);
-        } else if (id == R.id.command) {
             Intent intent = new Intent(getApplicationContext(), MyPage.class);
             startActivity(intent);
         } else if (id == R.id.bug_report) {
