@@ -39,6 +39,7 @@ public class Product extends AppCompatActivity {
     ImageView imgView_productImg;
     Button btn_register;
     String id;
+    FirebaseUser user;
 
     private FirebaseDatabase mDatabase;
     private DatabaseReference mReference;
@@ -114,6 +115,9 @@ public class Product extends AppCompatActivity {
                     }
                     txtView_avgPrice.setText(data.avgPrice);
 
+                    user = FirebaseAuth.getInstance().getCurrentUser();
+                    String username = user.getDisplayName();
+
                     double sum = 0, cnt=0, avg;
                     //HashMap<String, String> userPrice = data.userPrice;
                     if(data.userPrice!=null){
@@ -121,7 +125,7 @@ public class Product extends AppCompatActivity {
                             if(data.userPrice.get(key).equals("temp"))
                                 continue;
                             else{
-                                txtView_userPrice.append("user: " + data.userPrice.get(key) + "\n");
+                                txtView_userPrice.append(username + data.userPrice.get(key) + "\n");
                             }
                         }
                     }
