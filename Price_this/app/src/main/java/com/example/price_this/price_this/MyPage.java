@@ -66,12 +66,9 @@ public class MyPage extends AppCompatActivity {
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 // child 내에 있는 데이터만큼 반복합니다.
                 FirebaseLoad data = dataSnapshot.getValue(FirebaseLoad.class);
-
                 GoodsInfoArrayListQ.add(new GoodsInfo(data.id, data.name, data.price));
                 MyPageQuestion myPageQuestion = new MyPageQuestion(GoodsInfoArrayListQ);
-                //MyPageAnswer myPageAnswer = new MyPageAnswer(GoodsInfoArrayList);
                 mRecyclerView.setAdapter(myPageQuestion);
-                //mRecyclerView2.setAdapter(myPageAnswer);
             }
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {}
@@ -88,7 +85,9 @@ public class MyPage extends AppCompatActivity {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 FirebaseLoad data = dataSnapshot.getValue(FirebaseLoad.class);
-                GoodsInfoArrayListA.add(new GoodsInfo(data.id, data.name, data.price));
+                //HashMap<String, String> user = data.userPrice;
+                if(data.userPrice.get(userUid) != null)
+                    GoodsInfoArrayListA.add(new GoodsInfo(data.id, data.name, data.price));
                 MyPageAnswer myPageAnswer = new MyPageAnswer(GoodsInfoArrayListA);
                 mRecyclerView2.setAdapter(myPageAnswer);
             }
@@ -111,12 +110,12 @@ public class MyPage extends AppCompatActivity {
         public ArrayList<String> tags;
         public String spec;
         public String price;
-        public Map<String, String> userPrice;
+        public HashMap<String, String> userPrice;
 
         public FirebaseLoad() {
 
         }
-        public FirebaseLoad(String id, String name, String img, String desc, ArrayList tags, String spec, String price, Map userPrice){
+        public FirebaseLoad(String id, String name, String img, String desc, ArrayList tags, String spec, String price, HashMap userPrice){
             this.id = id;
             this.name = name;
             this.img = img;
