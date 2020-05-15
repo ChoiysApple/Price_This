@@ -1,5 +1,6 @@
 # Price_This
 Android app project
+Avaliable on [Play Store](https://play.google.com/store/apps/details?id=com.MarchenGraffiti.price_this.price_this)
 
 Usually, people do not know how much the price of this used goods.
 It costs a lot of time to figure out the price.
